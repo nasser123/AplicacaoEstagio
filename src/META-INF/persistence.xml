@@ -3,9 +3,12 @@
   <persistence-unit name="AplicacaoEstagioPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>br.com.model.Usuario</class>
+    <class>br.com.model.Estado</class>
+    <class>br.com.model.SituacaoCliente</class>
+    <class>br.com.model.Cidade</class>
+    <class>br.com.model.Cliente</class>
     <properties>
-     <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistotal?zeroDateTimeBehavior=convertToNull"/> -->
-       
+      <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistotal?zeroDateTimeBehavior=convertToNull"/> -->
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistotal"/>
       <property name="javax.persistence.jdbc.password" value="123456"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

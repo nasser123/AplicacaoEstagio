@@ -7,7 +7,7 @@
 package br.com.telas;
 
 import br.com.model.Usuario;
-import br.com.persistencia.Variaveis;
+import br.com.dao.Variaveis;
 import javax.swing.JTextField;
 
 /**
