@@ -58,7 +58,11 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel2.setText("senha");
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,6 +120,10 @@ public class TelaLogin extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -163,7 +171,12 @@ public class TelaLogin extends javax.swing.JFrame {
  private boolean realizarLogin() throws NoSuchAlgorithmException {
         String usuario = jTextField1.getText();
         //String senha = String.valueOf(jPasswordFieldSenha.getPassword());
-        String senha = Arrays.toString(jPasswordField1.getPassword());
+        char[] senhaTemp = jPasswordField1.getPassword();
+        String senha= "";
+        for(int i = 0 ; i < senhaTemp.length ; i++){
+            senha = senha + senhaTemp[i];
+        }
+//        System.out.println(senha);
         boolean loginCorreto = false;
         UsuarioController uc = new UsuarioController();
         loginCorreto = uc.verificaLogin(usuario, senha);

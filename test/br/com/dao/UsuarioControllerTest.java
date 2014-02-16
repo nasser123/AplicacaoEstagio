@@ -20,11 +20,7 @@ import static org.junit.Assert.*;
  */
 public class UsuarioControllerTest {
 
-    static Usuario usuario = new Usuario();
-    static Usuario resultado = new Usuario();
-    static UsuarioController instance = new UsuarioController();
-    static int idInserido = 0;
-
+    
     public UsuarioControllerTest() {
     }
 
@@ -57,11 +53,11 @@ public class UsuarioControllerTest {
         usu.setUsername("fulanodetal3");
         usu.setEmail("marcelo@marcelo.com.br");
         System.out.println("inserir");
-        usuario = instance.inserir(usu);
-        idInserido = usuario.getIdusuario();
-        System.out.println("Inserido " + this.usuario.getNome());
+        boolean validado = new UsuarioController().inserir(usu);
+        int idInserido = usu.getIdusuario();
+        System.out.println("Inserido " + usu.getNome());
         
-        testExcluir();
+        //testExcluir();
     }
 
     
@@ -70,15 +66,15 @@ public class UsuarioControllerTest {
      */
 
     //@Test
-    public void testExcluir() throws Exception {
-        System.out.println("Excluir");
-        Usuario usu = null;
-        usu = instance.pesquisarPorId(idInserido);
-        if(usu!= null){
-            if(usu.equals(usuario))
-                this.instance.excluir(usu);
-        }
-    }
+//    public void testExcluir() throws Exception {
+//        System.out.println("Excluir");
+//        Usuario usu = null;
+//        usu = instance.pesquisarPorId(idInserido);
+//        if(usu!= null){
+//            if(usu.equals(usuario))
+//                this.instance.excluir(usu);
+//        }
+//    }
     
     
     @Test
@@ -87,7 +83,7 @@ public class UsuarioControllerTest {
         String username = "nasser";
         String senha = "123";
         boolean expResult = false;
-        boolean result = instance.verificaLogin(username, senha);
+        boolean result = new UsuarioController().verificaLogin(username, senha);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");

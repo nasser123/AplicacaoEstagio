@@ -16,7 +16,7 @@ import javax.persistence.Query;
  *
  * @author Nasser
  */
-public class ClienteController {
+public class ClienteController implements IDao{
 
     private EntityManager entity;
 
@@ -29,47 +29,46 @@ public class ClienteController {
 
     }
 
-//    @Override
-    public Cliente inserir(Cliente cliente) throws SQLException {
+    @Override
+    public boolean inserir(Object cliente) throws SQLException {
         if (cliente instanceof Cliente) {
-            Cliente c =  cliente;
+            Cliente c =  (Cliente)cliente;
             entity.getTransaction().begin();
             entity.persist(c);
             entity.getTransaction().commit();
-
-            return c;
+            return true;
         }
-        return null;
+        return false;
     }
 
-//    @Override
-    public Cliente alterar(Cliente cliente) throws SQLException {
+    @Override
+    public boolean alterar(Object cliente) throws SQLException {
         if (cliente instanceof Cliente) {
-            Cliente c = cliente;
+            Cliente c = (Cliente)cliente;
             entity.getTransaction().begin();
             entity.merge(c);
             entity.getTransaction().commit();
 
-            return c;
+            return true;
         }
-        return null;
+        return false;
 
     }
 
-//    @Override
-    public Cliente excluir(Cliente cliente) throws SQLException {
+    @Override
+    public boolean excluir(Object cliente) throws SQLException {
         if (cliente instanceof Cliente) {
-            Cliente c =  cliente;
+            Cliente c =  (Cliente)cliente;
             entity.getTransaction().begin();
             entity.remove(c);
             entity.getTransaction().commit();
 
-            return c;
+            return true;
         }
-        return null;
+        return false;
     }
 
-//    @Override
+    @Override
     public Cliente pesquisarPorId(int id) throws SQLException {
         Cliente cliente = null;
         List clientes = entity.createNamedQuery("Cliente.findByIdcliente").setParameter("idcliente", id).getResultList();
@@ -100,7 +99,6 @@ public class ClienteController {
         return null;
     }
 
-    
 
 
 }

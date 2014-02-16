@@ -49,7 +49,7 @@ public class ClienteControllerTest {
         Cliente cliente = null;
         ClienteController instance = new ClienteController();
         Cliente expResult = null;
-        Cliente result = instance.inserir(cliente);
+        boolean result = instance.inserir(cliente);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -64,7 +64,7 @@ public class ClienteControllerTest {
         Cliente cliente = null;
         ClienteController instance = new ClienteController();
         Cliente expResult = null;
-        Cliente result = instance.alterar(cliente);
+        boolean result = instance.alterar(cliente);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -79,7 +79,7 @@ public class ClienteControllerTest {
         Cliente cliente = null;
         ClienteController instance = new ClienteController();
         Cliente expResult = null;
-        Cliente result = instance.excluir(cliente);
+        boolean result = instance.excluir(cliente);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

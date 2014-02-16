@@ -91,6 +91,7 @@ public class Usuario implements Serializable {
     }
 
     public String getSenha() {
+        System.out.println("Senha do banco" + senha);
         return senha;
     }
 
@@ -98,6 +99,7 @@ public class Usuario implements Serializable {
         MessageDigest m = MessageDigest.getInstance("MD5");
         m.update(senha.getBytes(), 0, senha.length());
         this.senha = new BigInteger(1, m.digest()).toString(16);
+        
     }
 
     @Override
