@@ -15,7 +15,7 @@ public interface IDao {
      * Retorna a própria entidade com seu identificador.
      * Pode disparar um {@link SQLException}
      * 
-     * @param entidade
+     * @param objeto
      * @return a entidade com seu identificador
      */
     public boolean inserir(Object objeto) throws SQLException;

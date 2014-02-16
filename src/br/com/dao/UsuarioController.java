@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 /**
  *
@@ -102,6 +103,14 @@ public class UsuarioController implements IDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public List<Usuario> pesquisarTodosPor(String colunaPesquisa, String atributoPesquisa) throws SQLException {
+        Query query = entity.createNativeQuery("Select * from Usuario where " + colunaPesquisa + " = \"" + atributoPesquisa + "\"", Usuario.class);
+        List usuarios = query.getResultList();
+        if (!usuarios.isEmpty()) {
+            return usuarios;
+        }
+        return null;
+    }
     private List<Usuario> getUsuarioBanco(String usuario) {
         //EntityManager em = Persistence.createEntityManagerFactory("AplicacaoEstagioPU").createEntityManager();
         //return em.createNamedQuery("Usuario.findByUsername", Usuario.class).setParameter("username", usuario).getResultList();

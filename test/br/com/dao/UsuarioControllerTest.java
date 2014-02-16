@@ -7,6 +7,10 @@ package br.com.dao;
 
 import br.com.model.Usuario;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -30,7 +34,22 @@ public class UsuarioControllerTest {
 
     @AfterClass
     public static void tearDownClass() {
-        
+        UsuarioController uc = new UsuarioController();
+        List<Usuario> usuariosTeste = null;
+        try {
+            usuariosTeste = uc.pesquisarTodosPor("nome", "Fulano3");
+            for (int i = 0; i < usuariosTeste.size(); i++) {
+                    uc.excluir(usuariosTeste.get(i));
+                    
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        for (int i = 0; i < usuariosTeste.size(); i++) {
+//            System.out.println(usuariosTeste.get(i).toString());
+//
+//        }
+
     }
 
     @Before
@@ -39,27 +58,43 @@ public class UsuarioControllerTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws SQLException {
+
     }
 
     /**
      * Test of verificaLogin method, of class UsuarioController.
      */
     @Test
-    public void testInserir() throws Exception {
+    public void testInserirUsuarioNovo() throws Exception {
         Usuario usu = new Usuario();
         usu.setNome("Fulano3");
         usu.setSenha("abcde");
-        usu.setUsername("fulanodetal3");
+        Long valorAleatorio = System.currentTimeMillis();
+        String username = valorAleatorio.toString();
+        usu.setUsername(username);
         usu.setEmail("marcelo@marcelo.com.br");
-        System.out.println("inserir");
+        System.out.println("inserirUsuarioNovo");
         boolean validado = new UsuarioController().inserir(usu);
         int idInserido = usu.getIdusuario();
-        System.out.println("Inserido " + usu.getNome());
-        
+        assertEquals(validado, true);
         //testExcluir();
     }
 
+    @Test
+    public void testInserirUsuarioExistente() throws Exception {
+        Usuario usu = new Usuario();
+        usu.setNome("Fulano3");
+        usu.setSenha("abcde");
+        Long valorAleatorio = System.currentTimeMillis();
+        String username = valorAleatorio.toString();
+        usu.setUsername("nasser");
+        usu.setEmail("marcelo@marcelo.com.br");
+        System.out.println("inserirUsuarioNovo");
+        boolean validado = new UsuarioController().inserir(usu);
+        assertEquals(validado, false);
+        //testExcluir();
+    }
     
     /**
      * Test of inserir method, of class UsuarioController.
