@@ -43,10 +43,7 @@ public class UsuarioDAO implements IDao {
         this.entity = ConnectionFactory.getEntityManager();
     }
 
-    /*
-     * Retorna do banco de dados o objeto usuario
-     * 
-     */
+    
     @Override
     public boolean inserir(Object usuario) throws SQLException {
         if (usuario instanceof Usuario) {
@@ -59,6 +56,18 @@ public class UsuarioDAO implements IDao {
                 return true;
             }
         }
+        return false;
+    }
+    
+    public boolean inserir(String nome, String email, String username, String senha) throws SQLException {
+            Usuario u = new Usuario(nome, email, username, senha);
+            
+            if (!existeUsername(u.getUsername())) {
+                entity.getTransaction().begin();
+                entity.persist(u);
+                entity.getTransaction().commit();
+                return true;
+            }
         return false;
     }
 
@@ -108,7 +117,12 @@ public class UsuarioDAO implements IDao {
 
     @Override
     public List<? extends Object> pesquisarTodosOrdenadoPor(String criterioOrdenamento) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Query query = entity.createNativeQuery("Select * from Usuario order by "  + criterioOrdenamento, Usuario.class);
+        List usuarios = query.getResultList();
+        if (!usuarios.isEmpty()) {
+            return usuarios;
+        }
+        return null;
     }
 
     public List<Usuario> pesquisarTodosPor(String colunaPesquisa, String atributoPesquisa) throws SQLException {

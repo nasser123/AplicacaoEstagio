@@ -44,8 +44,8 @@ public class Cidade implements Serializable {
     @JoinColumn(name = "idestado", referencedColumnName = "idestado")
     @ManyToOne(optional = false)
     private Estado idestado;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcidade")
-    private List<Cliente> clienteList;
+    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "idcidade")
+   // private List<Cliente> clienteList;
 
     public Cidade() {
     }
@@ -78,14 +78,14 @@ public class Cidade implements Serializable {
         this.idestado = idestado;
     }
 
-    @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
-    }
-
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
-    }
+//    @XmlTransient
+//    public List<Cliente> getClienteList() {
+//        return clienteList;
+//    }
+//
+//    public void setClienteList(List<Cliente> clienteList) {
+//        this.clienteList = clienteList;
+//    }
 
     @Override
     public int hashCode() {

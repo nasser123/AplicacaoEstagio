@@ -7,6 +7,10 @@
     <class>br.com.model.SituacaoCliente</class>
     <class>br.com.model.Cidade</class>
     <class>br.com.model.Cliente</class>
+    <class>br.com.model.Subgrupo</class>
+    <class>br.com.model.Grupo</class>
+    <class>br.com.model.Produto</class>
+    <class>br.com.model.Fabricante</class>
     <properties>
       <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistotal?zeroDateTimeBehavior=convertToNull"/> -->
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistotal"/>

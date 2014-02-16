@@ -20,7 +20,7 @@ import javax.persistence.Query;
  *
  * @author Nasser
  */
-public class ClienteDAO implements IDao{
+public class ClienteDAO implements IDao {
 
     private EntityManager entity;
 
@@ -36,7 +36,7 @@ public class ClienteDAO implements IDao{
     @Override
     public boolean inserir(Object cliente) throws SQLException {
         if (cliente instanceof Cliente) {
-            Cliente c =  (Cliente)cliente;
+            Cliente c = (Cliente) cliente;
             entity.getTransaction().begin();
             entity.persist(c);
             entity.getTransaction().commit();
@@ -45,10 +45,18 @@ public class ClienteDAO implements IDao{
         return false;
     }
 
+    public boolean inserir(String nome, String endereco, String numero, String complemento, String bairro, String cep, String email, String cpfCnpj, String inscEstadual) throws SQLException {
+        Cliente c = new Cliente(nome, endereco, numero, complemento, bairro, cep, email, cpfCnpj, inscEstadual);
+        entity.getTransaction().begin();
+        entity.persist(c);
+        entity.getTransaction().commit();
+        return true;
+    }
+
     @Override
     public boolean alterar(Object cliente) throws SQLException {
         if (cliente instanceof Cliente) {
-            Cliente c = (Cliente)cliente;
+            Cliente c = (Cliente) cliente;
             entity.getTransaction().begin();
             entity.merge(c);
             entity.getTransaction().commit();
@@ -62,7 +70,7 @@ public class ClienteDAO implements IDao{
     @Override
     public boolean excluir(Object cliente) throws SQLException {
         if (cliente instanceof Cliente) {
-            Cliente c =  (Cliente)cliente;
+            Cliente c = (Cliente) cliente;
             entity.getTransaction().begin();
             entity.remove(c);
             entity.getTransaction().commit();
@@ -102,7 +110,5 @@ public class ClienteDAO implements IDao{
         }
         return null;
     }
-
-
 
 }

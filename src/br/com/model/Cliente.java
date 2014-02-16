@@ -101,6 +101,21 @@ public class Cliente implements Serializable {
         this.nome = nome;
     }
 
+    public Cliente(String nome, String endereco, String numero, String complemento, String bairro, String cep, String email, String cpfCnpj, String inscEstadual) {
+        this.nome       =       nome;
+        this.endereco   =       endereco;
+        this.numero     =       numero;
+        this.complemento=       complemento;
+        this.bairro     =       bairro;
+        this.cep        =       cep;
+        this.email      =       email;
+        this.cpfCnpj    =       cpfCnpj;
+        this.inscEstadual=      inscEstadual;
+    }
+    
+    
+    
+    
     public Integer getIdcliente() {
         return idcliente;
     }
