@@ -2,6 +2,18 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 
 package br.com.dao;
@@ -19,9 +31,9 @@ import org.junit.Test;
  *
  * @author Nasser
  */
-public class ClienteControllerTest {
+public class ClienteDAOTest {
     
-    public ClienteControllerTest() {
+    public ClienteDAOTest() {
     }
     
     @BeforeClass
@@ -41,13 +53,13 @@ public class ClienteControllerTest {
     }
 
     /**
-     * Test of inserir method, of class ClienteController.
+     * Test of inserir method, of class ClienteDAO.
      */
     @Deprecated
     public void testInserir() throws Exception {
         System.out.println("inserir");
         Cliente cliente = null;
-        ClienteController instance = new ClienteController();
+        ClienteDAO instance = new ClienteDAO();
         Cliente expResult = null;
         boolean result = instance.inserir(cliente);
         assertEquals(expResult, result);
@@ -56,13 +68,13 @@ public class ClienteControllerTest {
     }
 
     /**
-     * Test of alterar method, of class ClienteController.
+     * Test of alterar method, of class ClienteDAO.
      */
     @Deprecated
     public void testAlterar() throws Exception {
         System.out.println("alterar");
         Cliente cliente = null;
-        ClienteController instance = new ClienteController();
+        ClienteDAO instance = new ClienteDAO();
         Cliente expResult = null;
         boolean result = instance.alterar(cliente);
         assertEquals(expResult, result);
@@ -71,13 +83,13 @@ public class ClienteControllerTest {
     }
 
     /**
-     * Test of excluir method, of class ClienteController.
+     * Test of excluir method, of class ClienteDAO.
      */
     @Deprecated
     public void testExcluir() throws Exception {
         System.out.println("excluir");
         Cliente cliente = null;
-        ClienteController instance = new ClienteController();
+        ClienteDAO instance = new ClienteDAO();
         Cliente expResult = null;
         boolean result = instance.excluir(cliente);
         assertEquals(expResult, result);
@@ -86,13 +98,13 @@ public class ClienteControllerTest {
     }
 
     /**
-     * Test of pesquisarPorId method, of class ClienteController.
+     * Test of pesquisarPorId method, of class ClienteDAO.
      */
     @Test
     public void testPesquisarPorId() throws Exception {
         System.out.println("pesquisarPorId");
         int id = 1;
-        ClienteController instance = new ClienteController();
+        ClienteDAO instance = new ClienteDAO();
         Cliente expResult = null;
         Cliente result = instance.pesquisarPorId(id);
         Cliente c = (Cliente) result;
@@ -100,12 +112,12 @@ public class ClienteControllerTest {
     }
 
     /**
-     * Test of pesquisarTodos method, of class ClienteController.
+     * Test of pesquisarTodos method, of class ClienteDAO.
      */
     @Test
     public void testPesquisarTodos() throws Exception {
         System.out.println("pesquisarTodos");
-        ClienteController instance = new ClienteController();
+        ClienteDAO instance = new ClienteDAO();
         List<Cliente> expResult = null;
         List<Cliente> result = instance.pesquisarTodos();
         
@@ -117,13 +129,13 @@ public class ClienteControllerTest {
     }
 
     /**
-     * Test of pesquisarTodosOrdenadoPor method, of class ClienteController.
+     * Test of pesquisarTodosOrdenadoPor method, of class ClienteDAO.
      */
     @Test
     public void testPesquisarTodosOrdenadoPorNome() throws Exception {
         System.out.println("pesquisarTodosOrdenadoPorNome");
         String criterioOrdenamento = "nome";
-        ClienteController instance = new ClienteController();
+        ClienteDAO instance = new ClienteDAO();
         List<Cliente> expResult = null;
         List<Cliente> result = instance.pesquisarTodosOrdenadoPor(criterioOrdenamento);
         for (int i= 0 ; i < result.size(); i ++){
@@ -136,7 +148,7 @@ public class ClienteControllerTest {
     public void testPesquisarTodosOrdenadoPorDataNascimento() throws Exception {
         System.out.println("pesquisarTodosOrdenadoPor");
         String criterioOrdenamento = "data_nascimento";
-        ClienteController instance = new ClienteController();
+        ClienteDAO instance = new ClienteDAO();
         List<Cliente> expResult = null;
         List<Cliente> result = instance.pesquisarTodosOrdenadoPor(criterioOrdenamento);
         for (int i= 0 ; i < result.size(); i ++){

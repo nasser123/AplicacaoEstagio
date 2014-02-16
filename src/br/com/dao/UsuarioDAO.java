@@ -6,6 +6,14 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package br.com.dao;
 
@@ -23,7 +31,7 @@ import javax.persistence.Query;
  *
  * @author Nasser
  */
-public class UsuarioController implements IDao {
+public class UsuarioDAO implements IDao {
     /*
      * To change this template, choose Tools | Templates
      * and open the template in the editor.
@@ -31,7 +39,7 @@ public class UsuarioController implements IDao {
 
     private EntityManager entity;
 
-    public UsuarioController() {
+    public UsuarioDAO() {
         this.entity = ConnectionFactory.getEntityManager();
     }
 

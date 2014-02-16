@@ -6,11 +6,19 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 
 package br.com.telas;
 
-import br.com.dao.UsuarioController;
+import br.com.dao.UsuarioDAO;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -178,7 +186,7 @@ public class TelaLogin extends javax.swing.JFrame {
         }
 //        System.out.println(senha);
         boolean loginCorreto = false;
-        UsuarioController uc = new UsuarioController();
+        UsuarioDAO uc = new UsuarioDAO();
         loginCorreto = uc.verificaLogin(usuario, senha);
         return loginCorreto;
     }

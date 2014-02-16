@@ -2,6 +2,18 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ *//*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package br.com.dao;
 
@@ -22,10 +34,10 @@ import static org.junit.Assert.*;
  *
  * @author Nasser
  */
-public class UsuarioControllerTest {
+public class UsuarioDAOTest {
 
     
-    public UsuarioControllerTest() {
+    public UsuarioDAOTest() {
     }
 
     @BeforeClass
@@ -34,7 +46,7 @@ public class UsuarioControllerTest {
 
     @AfterClass
     public static void tearDownClass() {
-        UsuarioController uc = new UsuarioController();
+        UsuarioDAO uc = new UsuarioDAO();
         List<Usuario> usuariosTeste = null;
         try {
             usuariosTeste = uc.pesquisarTodosPor("nome", "Fulano3");
@@ -43,7 +55,7 @@ public class UsuarioControllerTest {
                     
                 }
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsuarioDAOTest.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        for (int i = 0; i < usuariosTeste.size(); i++) {
 //            System.out.println(usuariosTeste.get(i).toString());
@@ -63,7 +75,7 @@ public class UsuarioControllerTest {
     }
 
     /**
-     * Test of verificaLogin method, of class UsuarioController.
+     * Test of verificaLogin method, of class UsuarioDAO.
      */
     @Test
     public void testInserirUsuarioNovo() throws Exception {
@@ -75,7 +87,7 @@ public class UsuarioControllerTest {
         usu.setUsername(username);
         usu.setEmail("marcelo@marcelo.com.br");
         System.out.println("inserirUsuarioNovo");
-        boolean validado = new UsuarioController().inserir(usu);
+        boolean validado = new UsuarioDAO().inserir(usu);
         int idInserido = usu.getIdusuario();
         assertEquals(validado, true);
         //testExcluir();
@@ -91,7 +103,7 @@ public class UsuarioControllerTest {
         usu.setUsername("nasser");
         usu.setEmail("marcelo@marcelo.com.br");
         System.out.println("inserirUsuarioNovo");
-        boolean validado = new UsuarioController().inserir(usu);
+        boolean validado = new UsuarioDAO().inserir(usu);
         assertEquals(validado, false);
         //testExcluir();
     }
@@ -110,15 +122,17 @@ public class UsuarioControllerTest {
 //                this.instance.excluir(usu);
 //        }
 //    }
-    
-    
+
+    /**
+     * Test of inserir method, of class UsuarioDAO.
+     */
     @Test
     public void testVerificaLoginErrado() throws Exception {
         System.out.println("verificaLoginErrado");
         String username = "nasser";
         String senha = "123";
         boolean expResult = false;
-        boolean result = new UsuarioController().verificaLogin(username, senha);
+        boolean result = new UsuarioDAO().verificaLogin(username, senha);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         // fail("The test case is a prototype.");
@@ -129,7 +143,7 @@ public class UsuarioControllerTest {
         System.out.println("verificaLoginCerto");
         String username = "nasser";
         String senha = "123456";
-        UsuarioController instance = new UsuarioController();
+        UsuarioDAO instance = new UsuarioDAO();
         boolean expResult = true;
         boolean result = instance.verificaLogin(username, senha);
         assertEquals(expResult, result);
