@@ -98,7 +98,7 @@ public class ConfigTelas {
          */
 
 
-        jp.setTitle("Sistema de Convênio Papa Tudo");
+        jp.setTitle("Sistema de Gestão de Micro e Pequenas Empresas");
 
         jp.setResizable(false);
 

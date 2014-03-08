@@ -45,14 +45,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Produto.findByEstoqueMinimo", query = "SELECT p FROM Produto p WHERE p.estoqueMinimo = :estoqueMinimo"),
     @NamedQuery(name = "Produto.findByCustoAtual", query = "SELECT p FROM Produto p WHERE p.custoAtual = :custoAtual")})
 public class Produto implements Serializable {
+    @Basic(optional = false)
+    @Column(name = "codigo")
+    private int codigo;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idproduto")
     private Integer idproduto;
-    @Column(name = "codigo")
-    private Integer codigo;
     @Column(name = "codigobarras")
     private String codigobarras;
     @Basic(optional = false)
@@ -74,7 +75,7 @@ public class Produto implements Serializable {
     private Integer saida;
     @Basic(optional = false)
     @Column(name = "idsubgrupo")
-    private int idsubgrupo;
+    private Grupo idsubgrupo;
     @Column(name = "ncm")
     private Integer ncm;
     @Column(name = "estoque_minimo")
@@ -95,7 +96,7 @@ public class Produto implements Serializable {
         this.idproduto = idproduto;
     }
 
-    public Produto(Integer idproduto, String descricao, int idsubgrupo) {
+    public Produto(Integer idproduto, String descricao, Grupo idsubgrupo) {
         this.idproduto = idproduto;
         this.descricao = descricao;
         this.idsubgrupo = idsubgrupo;
@@ -109,13 +110,6 @@ public class Produto implements Serializable {
         this.idproduto = idproduto;
     }
 
-    public Integer getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
 
     public String getCodigobarras() {
         return codigobarras;
@@ -181,11 +175,11 @@ public class Produto implements Serializable {
         this.saida = saida;
     }
 
-    public int getIdsubgrupo() {
+    public Grupo getIdsubgrupo() {
         return idsubgrupo;
     }
 
-    public void setIdsubgrupo(int idsubgrupo) {
+    public void setIdsubgrupo(Grupo idsubgrupo) {
         this.idsubgrupo = idsubgrupo;
     }
 
@@ -252,6 +246,14 @@ public class Produto implements Serializable {
     @Override
     public String toString() {
         return "br.com.model.Produto[ idproduto=" + idproduto + " ]";
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
 }
