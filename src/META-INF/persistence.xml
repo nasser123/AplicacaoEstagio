@@ -11,6 +11,10 @@
     <class>br.com.model.Grupo</class>
     <class>br.com.model.Produto</class>
     <class>br.com.model.Fabricante</class>
+    <class>br.com.model.TipoAtributo</class>
+    <class>br.com.model.ListaAtributoSubgrupo</class>
+    <class>br.com.model.Atributos</class>
+    <class>br.com.model.ListaAtributosProduto</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistotal?zeroDateTimeBehavior=convertToNull"/>
       <!-- <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistotal"/> -->
@@ -19,5 +23,4 @@
       <property name="javax.persistence.jdbc.user" value="root"/>
     </properties>
   </persistence-unit>
-  
 </persistence>

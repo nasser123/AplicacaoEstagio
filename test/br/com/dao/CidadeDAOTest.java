@@ -70,9 +70,9 @@ public class CidadeDAOTest {
     @Test
     public void testPesquisarPorId() throws Exception {
         System.out.println("pesquisarPorId");
-        int idCidade = 15;
+        int idCidade = 4266;
         CidadeDAO instance = new CidadeDAO();
-        String expResult = "Porto Walter";
+        String expResult = "Uruguaiana";
         Cidade result = instance.pesquisarPorId(idCidade);
         assertEquals(expResult, result.getNome());
     }

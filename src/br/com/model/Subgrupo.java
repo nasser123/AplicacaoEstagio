@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Subgrupo.findByIdsubgrupo", query = "SELECT s FROM Subgrupo s WHERE s.idsubgrupo = :idsubgrupo"),
     @NamedQuery(name = "Subgrupo.findByDescricao", query = "SELECT s FROM Subgrupo s WHERE s.descricao = :descricao")})
 public class Subgrupo implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idsubgrupo")
+    private List<ListaAtributoSubgrupo> listaAtributoSubgrupoList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -110,6 +112,15 @@ public class Subgrupo implements Serializable {
     @Override
     public String toString() {
         return "br.com.model.Subgrupo[ idsubgrupo=" + idsubgrupo + " ]";
+    }
+
+    @XmlTransient
+    public List<ListaAtributoSubgrupo> getListaAtributoSubgrupoList() {
+        return listaAtributoSubgrupoList;
+    }
+
+    public void setListaAtributoSubgrupoList(List<ListaAtributoSubgrupo> listaAtributoSubgrupoList) {
+        this.listaAtributoSubgrupoList = listaAtributoSubgrupoList;
     }
     
 }

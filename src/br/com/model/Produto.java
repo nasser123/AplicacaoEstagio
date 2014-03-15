@@ -6,9 +6,13 @@
 
 package br.com.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +23,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -45,6 +52,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Produto.findByEstoqueMinimo", query = "SELECT p FROM Produto p WHERE p.estoqueMinimo = :estoqueMinimo"),
     @NamedQuery(name = "Produto.findByCustoAtual", query = "SELECT p FROM Produto p WHERE p.custoAtual = :custoAtual")})
 public class Produto implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproduto")
+    private List<ListaAtributosProduto> listaAtributosProdutoList;
     @Basic(optional = false)
     @Column(name = "codigo")
     private int codigo;
@@ -73,18 +84,16 @@ public class Produto implements Serializable {
     private Integer entrada;
     @Column(name = "saida")
     private Integer saida;
-    @Basic(optional = false)
-    @Column(name = "idsubgrupo")
-    private Grupo idsubgrupo;
+    @JoinColumn(name = "idsubgrupo", referencedColumnName = "idsubgrupo")
+    @ManyToOne(optional = false)
+    private Subgrupo idsubgrupo;
     @Column(name = "ncm")
     private Integer ncm;
     @Column(name = "estoque_minimo")
     private Integer estoqueMinimo;
     @Column(name = "custo_atual")
     private BigDecimal custoAtual;
-    @JoinColumn(name = "idgrupo", referencedColumnName = "idgrupo")
-    @ManyToOne(optional = false)
-    private Grupo idgrupo;
+   
     @JoinColumn(name = "idfabricante", referencedColumnName = "idfabricante")
     @ManyToOne(optional = false)
     private Fabricante idfabricante;
@@ -96,7 +105,7 @@ public class Produto implements Serializable {
         this.idproduto = idproduto;
     }
 
-    public Produto(Integer idproduto, String descricao, Grupo idsubgrupo) {
+    public Produto(Integer idproduto, String descricao, Subgrupo idsubgrupo) {
         this.idproduto = idproduto;
         this.descricao = descricao;
         this.idsubgrupo = idsubgrupo;
@@ -107,7 +116,9 @@ public class Produto implements Serializable {
     }
 
     public void setIdproduto(Integer idproduto) {
+        Integer oldIdproduto = this.idproduto;
         this.idproduto = idproduto;
+        changeSupport.firePropertyChange("idproduto", oldIdproduto, idproduto);
     }
 
 
@@ -116,7 +127,9 @@ public class Produto implements Serializable {
     }
 
     public void setCodigobarras(String codigobarras) {
+        String oldCodigobarras = this.codigobarras;
         this.codigobarras = codigobarras;
+        changeSupport.firePropertyChange("codigobarras", oldCodigobarras, codigobarras);
     }
 
     public String getDescricao() {
@@ -124,7 +137,9 @@ public class Produto implements Serializable {
     }
 
     public void setDescricao(String descricao) {
+        String oldDescricao = this.descricao;
         this.descricao = descricao;
+        changeSupport.firePropertyChange("descricao", oldDescricao, descricao);
     }
 
     public BigDecimal getPrecoVenda1() {
@@ -132,7 +147,9 @@ public class Produto implements Serializable {
     }
 
     public void setPrecoVenda1(BigDecimal precoVenda1) {
+        BigDecimal oldPrecoVenda1 = this.precoVenda1;
         this.precoVenda1 = precoVenda1;
+        changeSupport.firePropertyChange("precoVenda1", oldPrecoVenda1, precoVenda1);
     }
 
     public BigDecimal getPrecoVenda2() {
@@ -140,7 +157,9 @@ public class Produto implements Serializable {
     }
 
     public void setPrecoVenda2(BigDecimal precoVenda2) {
+        BigDecimal oldPrecoVenda2 = this.precoVenda2;
         this.precoVenda2 = precoVenda2;
+        changeSupport.firePropertyChange("precoVenda2", oldPrecoVenda2, precoVenda2);
     }
 
     public BigDecimal getPrecoVenda3() {
@@ -148,7 +167,9 @@ public class Produto implements Serializable {
     }
 
     public void setPrecoVenda3(BigDecimal precoVenda3) {
+        BigDecimal oldPrecoVenda3 = this.precoVenda3;
         this.precoVenda3 = precoVenda3;
+        changeSupport.firePropertyChange("precoVenda3", oldPrecoVenda3, precoVenda3);
     }
 
     public String getObservacoes() {
@@ -156,7 +177,9 @@ public class Produto implements Serializable {
     }
 
     public void setObservacoes(String observacoes) {
+        String oldObservacoes = this.observacoes;
         this.observacoes = observacoes;
+        changeSupport.firePropertyChange("observacoes", oldObservacoes, observacoes);
     }
 
     public Integer getEntrada() {
@@ -164,7 +187,9 @@ public class Produto implements Serializable {
     }
 
     public void setEntrada(Integer entrada) {
+        Integer oldEntrada = this.entrada;
         this.entrada = entrada;
+        changeSupport.firePropertyChange("entrada", oldEntrada, entrada);
     }
 
     public Integer getSaida() {
@@ -172,15 +197,19 @@ public class Produto implements Serializable {
     }
 
     public void setSaida(Integer saida) {
+        Integer oldSaida = this.saida;
         this.saida = saida;
+        changeSupport.firePropertyChange("saida", oldSaida, saida);
     }
 
-    public Grupo getIdsubgrupo() {
+    public Subgrupo getIdsubgrupo() {
         return idsubgrupo;
     }
 
-    public void setIdsubgrupo(Grupo idsubgrupo) {
+    public void setIdsubgrupo(Subgrupo idsubgrupo) {
+        Subgrupo oldIdsubgrupo = this.idsubgrupo;
         this.idsubgrupo = idsubgrupo;
+        changeSupport.firePropertyChange("idsubgrupo", oldIdsubgrupo, idsubgrupo);
     }
 
     public Integer getNcm() {
@@ -188,7 +217,9 @@ public class Produto implements Serializable {
     }
 
     public void setNcm(Integer ncm) {
+        Integer oldNcm = this.ncm;
         this.ncm = ncm;
+        changeSupport.firePropertyChange("ncm", oldNcm, ncm);
     }
 
     public Integer getEstoqueMinimo() {
@@ -196,7 +227,9 @@ public class Produto implements Serializable {
     }
 
     public void setEstoqueMinimo(Integer estoqueMinimo) {
+        Integer oldEstoqueMinimo = this.estoqueMinimo;
         this.estoqueMinimo = estoqueMinimo;
+        changeSupport.firePropertyChange("estoqueMinimo", oldEstoqueMinimo, estoqueMinimo);
     }
 
     public BigDecimal getCustoAtual() {
@@ -204,23 +237,21 @@ public class Produto implements Serializable {
     }
 
     public void setCustoAtual(BigDecimal custoAtual) {
+        BigDecimal oldCustoAtual = this.custoAtual;
         this.custoAtual = custoAtual;
+        changeSupport.firePropertyChange("custoAtual", oldCustoAtual, custoAtual);
     }
 
-    public Grupo getIdgrupo() {
-        return idgrupo;
-    }
-
-    public void setIdgrupo(Grupo idgrupo) {
-        this.idgrupo = idgrupo;
-    }
+   
 
     public Fabricante getIdfabricante() {
         return idfabricante;
     }
 
     public void setIdfabricante(Fabricante idfabricante) {
+        Fabricante oldIdfabricante = this.idfabricante;
         this.idfabricante = idfabricante;
+        changeSupport.firePropertyChange("idfabricante", oldIdfabricante, idfabricante);
     }
 
     @Override
@@ -253,7 +284,26 @@ public class Produto implements Serializable {
     }
 
     public void setCodigo(int codigo) {
+        int oldCodigo = this.codigo;
         this.codigo = codigo;
+        changeSupport.firePropertyChange("codigo", oldCodigo, codigo);
+    }
+
+    @XmlTransient
+    public List<ListaAtributosProduto> getListaAtributosProdutoList() {
+        return listaAtributosProdutoList;
+    }
+
+    public void setListaAtributosProdutoList(List<ListaAtributosProduto> listaAtributosProdutoList) {
+        this.listaAtributosProdutoList = listaAtributosProdutoList;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

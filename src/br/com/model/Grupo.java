@@ -51,8 +51,7 @@ public class Grupo implements Serializable {
     private Integer idgrupo;
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idgrupo")
-    private List<Produto> produtoList;
+    
 
     public Grupo() {
     }
@@ -81,14 +80,7 @@ public class Grupo implements Serializable {
         changeSupport.firePropertyChange("descricao", oldDescricao, descricao);
     }
 
-    @XmlTransient
-    public List<Produto> getProdutoList() {
-        return produtoList;
-    }
-
-    public void setProdutoList(List<Produto> produtoList) {
-        this.produtoList = produtoList;
-    }
+    
 
     @Override
     public int hashCode() {

@@ -10,7 +10,9 @@
 package br.com.dao;
 
 import br.com.config.ConnectionFactory;
+import br.com.model.Fabricante;
 import br.com.model.Produto;
+import br.com.model.Subgrupo;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
@@ -24,6 +26,10 @@ import javax.persistence.Query;
 public class ProdutoDAO implements IDao {
 
     private EntityManager entity;
+    private Fabricante idfabricante;
+    private FabricanteDAO fabricanteDAO;
+    private Subgrupo idsubSubgrupo;
+    private SubGrupoDAO subGrupoDAO;
 
     public ProdutoDAO() {
         this.entity = ConnectionFactory.getEntityManager();
@@ -37,9 +43,9 @@ public class ProdutoDAO implements IDao {
     @Override
     public boolean inserir(Object produto) throws SQLException {
         if (produto instanceof Produto) {
-            Produto c = (Produto) produto;
+            Produto p = (Produto) produto;
             entity.getTransaction().begin();
-            entity.persist(c);
+            entity.persist(p);
             entity.getTransaction().commit();
             return true;
         }
@@ -48,9 +54,28 @@ public class ProdutoDAO implements IDao {
 
     public boolean inserir(int codigo, String codigoBarras, String descricao, 
                             BigDecimal preco_venda1, BigDecimal preco_venda2, BigDecimal preco_venda3, 
-                            String observacoes, int ncm, int idfabricante, int idgrupo ) throws SQLException {
+                            String observacoes, int ncm, int idfabricante, int idsubgrupo, int entrada, 
+                            int saida, int estoqueMinimo, BigDecimal custo_atual ) throws SQLException {
+                             
         Produto p = new Produto();
-        
+        fabricanteDAO = new FabricanteDAO();
+        this.idfabricante = fabricanteDAO.pesquisarPorId(idfabricante);
+        subGrupoDAO = new SubGrupoDAO();
+        this.idsubSubgrupo = subGrupoDAO.pesquisarPorId(idsubgrupo);
+        p.setCodigo(codigo);
+        p.setCodigobarras(codigoBarras);
+        p.setDescricao(descricao);
+        p.setPrecoVenda1(preco_venda1);
+        p.setPrecoVenda2(preco_venda2);
+        p.setPrecoVenda3(preco_venda3);
+        p.setObservacoes(observacoes);
+        p.setNcm(ncm);
+        p.setIdfabricante(this.idfabricante);
+        p.setIdsubgrupo(this.idsubSubgrupo);
+        p.setEntrada(entrada);
+        p.setSaida(saida);
+        p.setEstoqueMinimo(estoqueMinimo);
+        p.setCustoAtual(custo_atual);
         entity.getTransaction().begin();
         entity.persist(p);
         entity.getTransaction().commit();
@@ -96,6 +121,17 @@ public class ProdutoDAO implements IDao {
         return null;
     }
 
+    public Produto pesquisarPorCodigoDeBarras(String codigoBarras){
+    Produto produto = null;
+        List produtos = entity.createNamedQuery("Produto.findByCodigobarras").setParameter("codigobarras", codigoBarras).getResultList();
+        if (!produtos.isEmpty()) {
+            produto = (Produto) produtos.get(0);
+            return produto;
+        }
+
+        return null;
+    
+    }
 //    @Override
     public List<Produto> pesquisarTodos() throws SQLException {
         List produtos = entity.createNamedQuery("Produto.findAll").getResultList();
