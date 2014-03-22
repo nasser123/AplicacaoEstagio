@@ -6,6 +6,7 @@
 package br.com.dao;
 
 import br.com.config.ConnectionFactory;
+import br.com.model.Grupo;
 import br.com.model.Subgrupo;
 import java.sql.SQLException;
 import java.util.List;
@@ -48,6 +49,7 @@ public class SubGrupoDAO implements IDao {
                 antigo = sg;
                 entity.getTransaction().begin();
                 entity.persist(antigo);
+                entity.getTransaction().commit();
                 return true;
             }
         }
@@ -94,6 +96,21 @@ public class SubGrupoDAO implements IDao {
         }
 
         return subGrupos;
+    }
+
+    public List<Subgrupo> pesquisarPorGrupo(Grupo idGrupo) throws SQLException {
+
+        subGrupos = entity.createNamedQuery("Subgrupo.findByIdGrupo").setParameter("idgrupo", idGrupo).getResultList();
+
+        return subGrupos;
+    }
+
+    public List<Subgrupo> pesquisarNaoContemGrupo(Grupo idGrupo, String criterioOrdenamento) {
+        if (idGrupo != null) {
+            subGrupos =  entity.createNativeQuery("Select * from subgrupo where idgrupo <> " + idGrupo.getIdgrupo() + " order by  " + criterioOrdenamento, Subgrupo.class).getResultList();
+        }
+        return subGrupos;
+
     }
 
     public boolean existeSubgrupo(String descricao) {

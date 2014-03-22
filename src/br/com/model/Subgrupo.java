@@ -6,6 +6,8 @@
 
 package br.com.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -19,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -32,8 +35,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Subgrupo.findAll", query = "SELECT s FROM Subgrupo s"),
     @NamedQuery(name = "Subgrupo.findByIdsubgrupo", query = "SELECT s FROM Subgrupo s WHERE s.idsubgrupo = :idsubgrupo"),
+    @NamedQuery(name = "Subgrupo.findByIdGrupo", query = "SELECT s FROM Subgrupo s WHERE s.idgrupo = :idgrupo"),
     @NamedQuery(name = "Subgrupo.findByDescricao", query = "SELECT s FROM Subgrupo s WHERE s.descricao = :descricao")})
 public class Subgrupo implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idsubgrupo")
     private List<ListaAtributoSubgrupo> listaAtributoSubgrupoList;
     private static final long serialVersionUID = 1L;
@@ -46,7 +52,7 @@ public class Subgrupo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idsubgrupo")
     private List<Produto> produtoList;
     @JoinColumn(name = "idgrupo", referencedColumnName = "idgrupo")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private Grupo idgrupo;
 
     public Subgrupo() {
@@ -61,7 +67,9 @@ public class Subgrupo implements Serializable {
     }
 
     public void setIdsubgrupo(Integer idsubgrupo) {
+        Integer oldIdsubgrupo = this.idsubgrupo;
         this.idsubgrupo = idsubgrupo;
+        changeSupport.firePropertyChange("idsubgrupo", oldIdsubgrupo, idsubgrupo);
     }
 
     public String getDescricao() {
@@ -69,7 +77,9 @@ public class Subgrupo implements Serializable {
     }
 
     public void setDescricao(String descricao) {
+        String oldDescricao = this.descricao;
         this.descricao = descricao;
+        changeSupport.firePropertyChange("descricao", oldDescricao, descricao);
     }
 
     @XmlTransient
@@ -86,7 +96,9 @@ public class Subgrupo implements Serializable {
     }
 
     public void setIdgrupo(Grupo idgrupo) {
+        Grupo oldIdgrupo = this.idgrupo;
         this.idgrupo = idgrupo;
+        changeSupport.firePropertyChange("idgrupo", oldIdgrupo, idgrupo);
     }
 
     @Override
@@ -121,6 +133,14 @@ public class Subgrupo implements Serializable {
 
     public void setListaAtributoSubgrupoList(List<ListaAtributoSubgrupo> listaAtributoSubgrupoList) {
         this.listaAtributoSubgrupoList = listaAtributoSubgrupoList;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

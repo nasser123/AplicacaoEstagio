@@ -97,6 +97,7 @@ public class Produto implements Serializable {
     @JoinColumn(name = "idfabricante", referencedColumnName = "idfabricante")
     @ManyToOne(optional = false)
     private Fabricante idfabricante;
+    
 
     public Produto() {
     }
@@ -305,5 +306,15 @@ public class Produto implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
+    
+    
+
+    public int getEstoque() {
+        return this.entrada - this.saida;
+    }
+
+//    public void setEstoque() {
+//        this.estoque = this.entrada - this.saida;
+//    }
     
 }
