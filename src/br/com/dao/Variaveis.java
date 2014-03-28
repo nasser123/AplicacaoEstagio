@@ -34,6 +34,14 @@ public class Variaveis {
         return usuario;
     }
     
+    public static String getNomeExtensoSistema(){
+        return "Sistema de Gerenciamento de Micro e Pequenas Empresas";
+    }
+    
+    public static String getSiglaSistema(){
+        return "SisGeMPE";
+    }
+    
 //    public static void setConnection(){
 //        conexao = ConnectionFactory.getConnection();
 //    }

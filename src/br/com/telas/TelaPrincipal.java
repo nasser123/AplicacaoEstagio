@@ -8,7 +8,8 @@ package br.com.telas;
 
 import br.com.model.Usuario;
 import br.com.dao.Variaveis;
-import javax.swing.JTextField;
+import br.com.utilidades.ConfigTelas;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +24,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         //this.usuario = u;
         initComponents();
         jLabel1.setText(Variaveis.getUsuario().getNome());
+        ConfigTelas ct = new ConfigTelas(this);
+        ct.carregarConfig(this);
     }
 
     /**
@@ -35,63 +38,191 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonGrupos = new javax.swing.JButton();
+        jButtonProdutos = new javax.swing.JButton();
+        jButtonSubgrupos = new javax.swing.JButton();
+        jButtonVenda = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuCadastros = new javax.swing.JMenu();
+        Produtos = new javax.swing.JMenu();
+        jMenuItemProdutos = new javax.swing.JMenuItem();
+        jMenuItemGrupos = new javax.swing.JMenuItem();
+        jMenuItemSubgrupos = new javax.swing.JMenuItem();
+        jMenuItemFabricantes = new javax.swing.JMenuItem();
+        jMenuItemFornecedores = new javax.swing.JMenuItem();
+        jMenuItemClientes = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItemVenda = new javax.swing.JMenuItem();
+        jMenuItemNotasEntrada = new javax.swing.JMenuItem();
+        jMenuItemOrçamento = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItemContasPagar = new javax.swing.JMenuItem();
+        jMenuItemContasReceber = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("jLabel1");
 
-        jButton1.setText("Grupos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGrupos.setText("Grupos");
+        jButtonGrupos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonGruposActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Produtos");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonProdutos.setText("Produtos");
+        jButtonProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonProdutosActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Subgrupos");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSubgrupos.setText("Subgrupos");
+        jButtonSubgrupos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonSubgruposActionPerformed(evt);
             }
         });
+
+        jButtonVenda.setText("Venda");
+        jButtonVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVendaActionPerformed(evt);
+            }
+        });
+
+        jMenuCadastros.setText("Cadastros");
+
+        Produtos.setText("Produtos");
+
+        jMenuItemProdutos.setText("Produtos");
+        jMenuItemProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemProdutosActionPerformed(evt);
+            }
+        });
+        Produtos.add(jMenuItemProdutos);
+
+        jMenuItemGrupos.setText("Grupos de Produto");
+        jMenuItemGrupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGruposActionPerformed(evt);
+            }
+        });
+        Produtos.add(jMenuItemGrupos);
+
+        jMenuItemSubgrupos.setText("Subgrupos de Produto");
+        jMenuItemSubgrupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSubgruposActionPerformed(evt);
+            }
+        });
+        Produtos.add(jMenuItemSubgrupos);
+
+        jMenuItemFabricantes.setText("Fabricantes");
+        jMenuItemFabricantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFabricantesActionPerformed(evt);
+            }
+        });
+        Produtos.add(jMenuItemFabricantes);
+
+        jMenuCadastros.add(Produtos);
+
+        jMenuItemFornecedores.setText("Fornecedores");
+        jMenuItemFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFornecedoresActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemFornecedores);
+
+        jMenuItemClientes.setText("Clientes");
+        jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemClientesActionPerformed(evt);
+            }
+        });
+        jMenuCadastros.add(jMenuItemClientes);
+
+        jMenuBar1.add(jMenuCadastros);
+
+        jMenu2.setText("Movimentos");
+
+        jMenuItemVenda.setText("Venda");
+        jMenu2.add(jMenuItemVenda);
+
+        jMenuItemNotasEntrada.setText("Notas Entrada");
+        jMenuItemNotasEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNotasEntradaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemNotasEntrada);
+
+        jMenuItemOrçamento.setText("Orçamento");
+        jMenuItemOrçamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemOrçamentoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemOrçamento);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("Caixa");
+
+        jMenuItemContasPagar.setText("Contas a Pagar");
+        jMenuItemContasPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemContasPagarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemContasPagar);
+
+        jMenuItemContasReceber.setText("Contas a Receber");
+        jMenuItemContasReceber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemContasReceberActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemContasReceber);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57)
-                        .addComponent(jButton2))
+                        .addGap(46, 46, 46)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jButton3)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonSubgrupos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                            .addComponent(jButtonGrupos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonProdutos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
+                        .addComponent(jButtonVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonProdutos)
+                    .addComponent(jButtonVenda))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addComponent(jButtonGrupos)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonSubgrupos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -100,19 +231,63 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGruposActionPerformed
         new TelaGrupo().setVisible(true);
         //this.dispose();
                 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonGruposActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProdutosActionPerformed
         new TelaListaProdutos().setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonProdutosActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jButtonSubgruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSubgruposActionPerformed
         new TelaSubgrupo().setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButtonSubgruposActionPerformed
+
+    private void jButtonVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendaActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jButtonVendaActionPerformed
+
+    private void jMenuItemFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFornecedoresActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jMenuItemFornecedoresActionPerformed
+
+    private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jMenuItemClientesActionPerformed
+
+    private void jMenuItemFabricantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFabricantesActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jMenuItemFabricantesActionPerformed
+
+    private void jMenuItemNotasEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNotasEntradaActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jMenuItemNotasEntradaActionPerformed
+
+    private void jMenuItemOrçamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemOrçamentoActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jMenuItemOrçamentoActionPerformed
+
+    private void jMenuItemContasPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemContasPagarActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jMenuItemContasPagarActionPerformed
+
+    private void jMenuItemContasReceberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemContasReceberActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jMenuItemContasReceberActionPerformed
+
+    private void jMenuItemProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemProdutosActionPerformed
+        new TelaListaProdutos().setVisible(true);
+    }//GEN-LAST:event_jMenuItemProdutosActionPerformed
+
+    private void jMenuItemGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGruposActionPerformed
+        new TelaGrupo().setVisible(true);
+    }//GEN-LAST:event_jMenuItemGruposActionPerformed
+
+    private void jMenuItemSubgruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSubgruposActionPerformed
+        new TelaSubgrupo().setVisible(true);
+    }//GEN-LAST:event_jMenuItemSubgruposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,9 +325,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JMenu Produtos;
+    private javax.swing.JButton jButtonGrupos;
+    private javax.swing.JButton jButtonProdutos;
+    private javax.swing.JButton jButtonSubgrupos;
+    private javax.swing.JButton jButtonVenda;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCadastros;
+    private javax.swing.JMenuItem jMenuItemClientes;
+    private javax.swing.JMenuItem jMenuItemContasPagar;
+    private javax.swing.JMenuItem jMenuItemContasReceber;
+    private javax.swing.JMenuItem jMenuItemFabricantes;
+    private javax.swing.JMenuItem jMenuItemFornecedores;
+    private javax.swing.JMenuItem jMenuItemGrupos;
+    private javax.swing.JMenuItem jMenuItemNotasEntrada;
+    private javax.swing.JMenuItem jMenuItemOrçamento;
+    private javax.swing.JMenuItem jMenuItemProdutos;
+    private javax.swing.JMenuItem jMenuItemSubgrupos;
+    private javax.swing.JMenuItem jMenuItemVenda;
     // End of variables declaration//GEN-END:variables
 }

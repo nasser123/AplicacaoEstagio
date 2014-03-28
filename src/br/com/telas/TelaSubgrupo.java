@@ -7,6 +7,7 @@ package br.com.telas;
 
 import br.com.config.ConnectionFactory;
 import br.com.dao.SubGrupoDAO;
+import br.com.dao.Variaveis;
 import br.com.model.Subgrupo;
 import br.com.utilidades.ConfigTelas;
 import java.sql.SQLException;
@@ -188,7 +189,7 @@ public class TelaSubgrupo extends javax.swing.JFrame {
             Subgrupo sg = (Subgrupo)jComboBoxSubgrupo.getSelectedItem();
             try {
                 subGrupoDAO.alterar(sg);
-                JOptionPane.showMessageDialog(rootPane, "Subgrupo gravado com sucesso");
+                JOptionPane.showMessageDialog(rootPane, "Subgrupo gravado com sucesso", Variaveis.getSiglaSistema(), 1);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaSubgrupo.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -212,7 +213,7 @@ public class TelaSubgrupo extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

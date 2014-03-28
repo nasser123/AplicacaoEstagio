@@ -10,6 +10,7 @@ import br.com.model.Grupo;
 import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -57,11 +58,18 @@ public class GrupoDAO implements IDao {
     @Override
     public boolean excluir(Object objeto) throws SQLException {
         if (objeto instanceof Grupo) {
+            //SubGrupoDAO subGrupoDAO = new SubGrupoDAO();
+
             Grupo g = (Grupo) objeto;
-            entity.getTransaction().begin();
-            entity.remove(g);
-            entity.getTransaction().commit();
-            return true;
+            if (g.getSubgrupoList().isEmpty()) {
+                entity.getTransaction().begin();
+                entity.remove(g);
+                entity.getTransaction().commit();
+                return true;
+            }else{
+                JOptionPane.showMessageDialog(null, "Existem Subgrupos relacionados a esse grupo \n", Variaveis.getSiglaSistema(), 0);
+            
+            }
         }
         return false;
     }
@@ -104,6 +112,5 @@ public class GrupoDAO implements IDao {
         }
         return false;
     }
-    
 
 }

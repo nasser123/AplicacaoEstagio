@@ -12,9 +12,12 @@ package br.com.telas;
 import br.com.config.ConnectionFactory;
 import br.com.dao.ProdutoDAO;
 import br.com.dao.SubGrupoDAO;
+import br.com.model.Fabricante;
 import br.com.model.Grupo;
 import br.com.model.Produto;
 import br.com.model.Subgrupo;
+import br.com.utilidades.Validadores;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,11 +32,13 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroProduto
      */
-    Produto produto;
-    ProdutoDAO pdao;
+    private Produto produto;
+    private ProdutoDAO pdao;
     private int idproduto = 1;
-    SubGrupoDAO sbdao;
+    private SubGrupoDAO sbdao;
     private boolean editando = false;
+    private boolean novo = false;
+    private boolean validado = true;
 
     public TelaCadastroProduto(Produto produto) throws SQLException {
         //this.idproduto = idproduto;
@@ -46,10 +51,15 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     public TelaCadastroProduto() throws SQLException {
         //this.idproduto = idproduto;
         pdao = new ProdutoDAO();
-        this.produto = pdao.pesquisarPorId(idproduto);
+        novo = true;
+
+        // this.produto = pdao.pesquisarPorId(idproduto);
         initComponents();
+        jButtonExcluir.setVisible(false);
+        liberaCampos();
 
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,6 +110,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jComboBoxGrupo = new javax.swing.JComboBox();
         jComboBoxSubGrupo = new javax.swing.JComboBox();
+        jButtonSair = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
 
         gruposListCellRenderer1.setText("gruposListCellRenderer1");
 
@@ -194,7 +207,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jPanel1.add(jFormattedTextFieldEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 247, 80, -1));
 
-        jButtonGravar.setText("Atualizar");
+        jButtonGravar.setText("Gravar");
         jButtonGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGravarActionPerformed(evt);
@@ -295,6 +308,30 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jPanel1.add(jComboBoxSubGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 220, -1));
 
+        jButtonSair.setText("Sair");
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, -1, -1));
+
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, -1, -1));
+
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 620, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,22 +350,59 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
-        produto1.setIdsubgrupo((Subgrupo)jComboBoxSubGrupo.getSelectedItem());
-        
-        try {
-            pdao.alterar(produto1);
-            JOptionPane.showMessageDialog(rootPane, "Produto salvo");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro");
-            Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+        if (validado) {
+            if (!novo) {
+                produto1.setIdsubgrupo((Subgrupo) jComboBoxSubGrupo.getSelectedItem());
+                try {
+                    boolean alterado = pdao.alterar(produto1);
+                    if (alterado) {
+                        JOptionPane.showMessageDialog(rootPane, "Produto salvo");
+                    }
+                    this.dispose();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(rootPane, "Erro");
+                    Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                produto1 = new Produto();
+                produto1.setCodigo(Integer.parseInt(jTextFieldCodigo.getText()));
+                produto1.setCodigobarras(jTextFieldCodigoBarras.getText());
+                produto1.setDescricao(jTextFieldDescricao.getText());
+                produto1.setPrecoVenda1(new BigDecimal(jTextFieldPreco1.getText()));
+                produto1.setPrecoVenda2(new BigDecimal(jTextFieldPreco2.getText()));
+                produto1.setPrecoVenda3(new BigDecimal(jTextFieldPreco3.getText()));
+                produto1.setEntrada(Integer.parseInt(jFormattedTextFieldEntrada.getText()));
+                produto1.setSaida(Integer.parseInt(jFormattedTextFieldSaidas.getText()));
+                produto1.setEstoqueMinimo(Integer.parseInt(jFormattedTextFieldEstoqueMinimo.getText()));
+                produto1.setIdsubgrupo((Subgrupo) jComboBoxSubGrupo.getSelectedItem());
+                produto1.setIdfabricante((Fabricante) jComboBoxFabricante.getSelectedItem());
+
+                try {
+
+                    boolean inserido = pdao.inserir(produto1);
+                    if (inserido) {
+                        JOptionPane.showMessageDialog(rootPane, "Produto gravado com sucesso");
+                    }
+                    new TelaListaProdutos().setVisible(true);
+                    this.dispose();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Verifique erro de digitação", "SisGeMPE", 0);
+                }
+
+            }
+
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "verifique os valores digitados", "SisGeMPE", 0);
+
         }
-        
-        this.dispose();
+
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
-
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+    private void liberaCampos() {
         jTextFieldCodigoBarras.setEditable(true);
         jTextFieldDescricao.setEditable(true);
         jFormattedTextFieldEstoqueMinimo.setEditable(true);
@@ -338,15 +412,23 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jComboBoxFabricante.setEnabled(true);
         jTextField1.setVisible(false);
         jTextField2.setVisible(false);
-        
-        Subgrupo sg = produto1.getIdsubgrupo();
-        Grupo g = sg.getIdgrupo();
-        
-        jComboBoxSubGrupo.setSelectedItem(sg);
-        jComboBoxGrupo.setSelectedItem(g);
 
+        if (!novo) {
+            Subgrupo sg = produto1.getIdsubgrupo();
+            Grupo g = sg.getIdgrupo();
+            jComboBoxSubGrupo.setSelectedItem(sg);
+            jComboBoxGrupo.setSelectedItem(g);
+        } else {
+            jTextFieldCodigo.setEditable(true);
+            jFormattedTextFieldEntrada.setEditable(true);
+            jFormattedTextFieldSaidas.setEditable(true);
+        }
         this.editando = true;
 
+    }
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        liberaCampos();
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void preencheComboGrupo() {
@@ -355,14 +437,45 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
 
     private void jTextFieldPreco3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPreco3FocusLost
-        jTextFieldPreco3.setText(produto1.getPrecoVenda3().toString());
+        this.validado = Validadores.ehDinheiro(jTextFieldPreco3.getText());
+        if (!novo) {
+            jTextFieldPreco3.setText(produto1.getPrecoVenda3().toString());
+        }
+        this.validado = Validadores.ehDinheiro(jTextFieldPreco3.getText());
+
     }//GEN-LAST:event_jTextFieldPreco3FocusLost
 
     private void jTextFieldPreco2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPreco2FocusLost
+        this.validado = Validadores.ehDinheiro(jTextFieldPreco3.getText());
+        if (!novo)
         jTextFieldPreco2.setText(produto1.getPrecoVenda2().toString());    }//GEN-LAST:event_jTextFieldPreco2FocusLost
 
     private void jTextFieldPreco1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPreco1FocusLost
+        this.validado = Validadores.ehDinheiro(jTextFieldPreco3.getText());
+        if (!novo)
         jTextFieldPreco1.setText(produto1.getPrecoVenda1().toString());    }//GEN-LAST:event_jTextFieldPreco1FocusLost
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        new TelaListaProdutos().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        new TelaListaProdutos().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        try {
+            boolean excluido = pdao.excluir(produto1);
+            if (excluido) {
+                JOptionPane.showMessageDialog(rootPane, "Produto excluido com êxito", "SisGeMPE", 1);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,8 +524,11 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private java.util.List<br.com.model.Grupo> grupoList;
     private javax.persistence.Query grupoQuery;
     private br.com.renderizadores.GrupoListCellRenderer gruposListCellRenderer1;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonGravar;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBoxFabricante;
     private javax.swing.JComboBox jComboBoxGrupo;
     private javax.swing.JComboBox jComboBoxSubGrupo;

@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.telas;
 
 import br.com.config.ConnectionFactory;
+import br.com.dao.ProdutoDAO;
 import br.com.model.Produto;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,10 +22,41 @@ public class TelaListaProdutos extends javax.swing.JFrame {
     /**
      * Creates new form TelaListaProdutos
      */
+    ProdutoDAO pdao;
     public TelaListaProdutos() {
         initComponents();
         jComboBox2.setVisible(false);
+        pdao = new ProdutoDAO();
+//        defineCorLinha();
     }
+
+    private void defineCorLinha() {
+//        int idColunaMinimo = 0;
+//        int idColunaEstoque = 0;
+//        
+//        for (int i = 0; i < jTable1.getModel().getColumnCount(); i++) {
+//            String coluna = jTable1.getModel().getColumnName(i);
+//            
+//            if (coluna.equals("Mínimo")) {
+//                idColunaMinimo = i;
+//            } else if (coluna.equals("Estoque")) {
+//                idColunaEstoque = i;
+//            }
+//        }
+//
+//        for (int i = 0; i < jTable1.getModel().getRowCount(); i++) {
+//            int estoqueMinimo = (int) jTable1.getModel().getValueAt(i, idColunaMinimo);
+//            int estoqueAtual = (int) jTable1.getModel().getValueAt(i, idColunaEstoque);
+//
+//            if (estoqueAtual <= estoqueMinimo){
+//                TableCellRenderer tcr = jTable1.getCellRenderer(i, idColunaEstoque);
+//                
+//            }
+//        }
+
+    }
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,12 +70,15 @@ public class TelaListaProdutos extends javax.swing.JFrame {
 
         AplicacaoEstagioPUEntityManager = ConnectionFactory.getEntityManager();
         produtoQuery = java.beans.Beans.isDesignTime() ? null : AplicacaoEstagioPUEntityManager.createQuery("SELECT p FROM Produto p");
-        produtoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : produtoQuery.getResultList();
+        produtoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(produtoQuery.getResultList());
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jButtonDetalhe = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
+        jButtonNovo = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -110,14 +145,14 @@ public class TelaListaProdutos extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setMaxWidth(50);
         }
 
-        jButton1.setText("Detalhe");
+        jButtonDetalhe.setText("Detalhe");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButton1, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonDetalhe, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDetalhe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonDetalheActionPerformed(evt);
             }
         });
 
@@ -125,6 +160,31 @@ public class TelaListaProdutos extends javax.swing.JFrame {
         bindingGroup.addBinding(jComboBoxBinding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement}"), jComboBox2, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
+
+        jButtonNovo.setText("Novo");
+        jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoActionPerformed(evt);
+            }
+        });
+
+        jButtonSair.setText("Sair");
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
+            }
+        });
+
+        jButtonExcluir.setText("Excluir");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonExcluir, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -136,8 +196,14 @@ public class TelaListaProdutos extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(340, 340, 340)
-                        .addComponent(jButton1)
+                        .addGap(199, 199, 199)
+                        .addComponent(jButtonExcluir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonNovo)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButtonDetalhe)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSair)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -153,7 +219,11 @@ public class TelaListaProdutos extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonDetalhe)
+                    .addComponent(jButtonNovo)
+                    .addComponent(jButtonSair)
+                    .addComponent(jButtonExcluir))
                 .addGap(109, 109, 109))
         );
 
@@ -174,14 +244,43 @@ public class TelaListaProdutos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Produto p = (Produto)jComboBox2.getSelectedItem();
+    private void jButtonDetalheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalheActionPerformed
+        Produto p = (Produto) jComboBox2.getSelectedItem();
         try {
             new TelaCadastroProduto(p).setVisible(true);
+            this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(TelaListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonDetalheActionPerformed
+
+    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+        try {
+            new TelaCadastroProduto().setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaListaProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        Produto p = (Produto)jComboBox2.getSelectedItem();
+        try {
+            boolean excluido = pdao.excluir(p);
+            if (excluido) {
+                JOptionPane.showMessageDialog(rootPane, "Produto excluido com êxito", "SisGeMPE", 1);
+                produtoList.clear();
+                produtoList.addAll(produtoQuery.getResultList());
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jButtonSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +319,10 @@ public class TelaListaProdutos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager AplicacaoEstagioPUEntityManager;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonDetalhe;
+    private javax.swing.JButton jButtonExcluir;
+    private javax.swing.JButton jButtonNovo;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

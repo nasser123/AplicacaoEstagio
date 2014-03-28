@@ -4,6 +4,7 @@
  */
 package br.com.utilidades;
 
+import br.com.dao.Variaveis;
 import java.awt.AWTKeyStroke;
 import java.awt.Dimension;
 import java.awt.KeyboardFocusManager;
@@ -54,18 +55,23 @@ public class ConfigTelas {
 
     }
 
+    /**
+     * NÃO IMPLEMENTADO
+     * @param jp 
+     */
     public void carregaIcone(JFrame jp) {
-        BufferedImage ico = null;
-        try {
-            ico = ImageIO.read(jp.getClass().getResource("/imagens/agenda_tit.png"));
-            jp.setIconImage(ico);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Erro ao carregar icone!");
-        } catch (java.lang.NullPointerException npe) {
-            System.out.println("Erro ao carregar icone!");
-        } catch (IOException e) {
-            System.out.println("Erro ao carregar icone!");
-        }
+//        BufferedImage ico = null;
+//        try {
+//            System.out.println(jp.getClass().getCanonicalName().toString());
+//            ico = ImageIO.read(jp.getClass().getResource("../imagens/loja.png"));
+//            jp.setIconImage(ico);
+//        } catch (IllegalArgumentException iae) {
+//            System.out.println("Erro ao carregar icone-argumento!");
+//        } catch (java.lang.NullPointerException npe) {
+//            System.out.println("Erro ao carregar icone-nullpointer!");
+//        } catch (IOException e) {
+//            System.out.println("Erro ao carregar icone-geral!");
+//        }
 
     }
 
@@ -98,7 +104,7 @@ public class ConfigTelas {
          */
 
 
-        jp.setTitle("Sistema de Gestão de Micro e Pequenas Empresas");
+        jp.setTitle(Variaveis.getNomeExtensoSistema());
 
         //jp.setResizable(false);
 
@@ -106,7 +112,7 @@ public class ConfigTelas {
         //Altera o icone padrão do java
         BufferedImage ico = null;
         try {
-            ico = ImageIO.read(jp.getClass().getResource("/imagens/vendas64.png"));
+            ico = ImageIO.read(jp.getClass().getResource("../imagens/loja.png"));
             jp.setIconImage(ico);
         } catch (IllegalArgumentException iae) {
             System.out.println("Erro ao carregar icone!");

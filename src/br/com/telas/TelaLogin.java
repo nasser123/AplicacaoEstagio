@@ -19,6 +19,7 @@
 package br.com.telas;
 
 import br.com.dao.UsuarioDAO;
+import br.com.utilidades.ConfigTelas;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +36,8 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        ConfigTelas ct = new ConfigTelas(this);
+        ct.carregarConfig(this);
     }
 
     /**
@@ -56,7 +59,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jTextField1.setText("nasser");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -79,7 +82,7 @@ public class TelaLogin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
+                .addContainerGap(231, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(106, 106, 106))
             .addGroup(layout.createSequentialGroup()

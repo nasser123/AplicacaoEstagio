@@ -45,10 +45,10 @@ public class SubGrupoDAO implements IDao {
         if (objeto instanceof Subgrupo) {
             Subgrupo sg = (Subgrupo) objeto;
             if (pesquisarPorId(sg.getIdsubgrupo()) != null) {
-                Subgrupo antigo = pesquisarPorId(sg.getIdsubgrupo());
-                antigo = sg;
+//                Subgrupo antigo = pesquisarPorId(sg.getIdsubgrupo());
+//                antigo = sg;
                 entity.getTransaction().begin();
-                entity.merge(antigo);
+                entity.merge(sg);
                 entity.getTransaction().commit();
                 return true;
             }

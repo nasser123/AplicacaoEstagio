@@ -7,6 +7,8 @@
  */
 package br.com.utilidades;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Produção
@@ -24,6 +26,21 @@ public class Validadores {
         }
 
         return true;
+    }
+    
+    public static boolean ehDinheiro(String valor){
+        if (valor != null) {
+            try {
+                new BigDecimal(valor);
+            } catch (NumberFormatException nfe) {
+                return false;
+            }
+
+        }
+
+        return true;
+    
+    
     }
     
     
