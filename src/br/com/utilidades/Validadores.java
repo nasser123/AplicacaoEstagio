@@ -1,11 +1,11 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
+ *//*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
  */
 package br.com.utilidades;
-
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class Validadores {
 
-    public static boolean verificaNr(String valor) {
+    public static boolean ehNr(String valor) {
         if (valor != null) {
             try {
                 Integer.parseInt(valor);

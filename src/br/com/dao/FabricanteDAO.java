@@ -52,6 +52,7 @@ public class FabricanteDAO implements IDao {
                 antigo = f;
                 entity.getTransaction().begin();
                 entity.persist(antigo);
+                entity.getTransaction().commit();
                 return true;
             }
         }

@@ -45,7 +45,7 @@ public class TelaListaProdutos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -74,17 +74,13 @@ public class TelaListaProdutos extends javax.swing.JFrame {
         columnBinding.setColumnName("Saídas");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estoque}"));
-        columnBinding.setColumnName("Estoque");
-        columnBinding.setColumnClass(Integer.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estoqueMinimo}"));
         columnBinding.setColumnName("Mínimo");
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${custoAtual}"));
-        columnBinding.setColumnName("Custo");
-        columnBinding.setColumnClass(java.math.BigDecimal.class);
-        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${estoque}"));
+        columnBinding.setColumnName("Estoque");
+        columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
@@ -112,9 +108,6 @@ public class TelaListaProdutos extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setMinWidth(50);
             jTable1.getColumnModel().getColumn(7).setPreferredWidth(60);
             jTable1.getColumnModel().getColumn(7).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(8).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(70);
-            jTable1.getColumnModel().getColumn(8).setMaxWidth(70);
         }
 
         jButton1.setText("Detalhe");
@@ -178,6 +171,7 @@ public class TelaListaProdutos extends javax.swing.JFrame {
         bindingGroup.bind();
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

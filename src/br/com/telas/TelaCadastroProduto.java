@@ -200,7 +200,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 jButtonGravarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 620, -1, -1));
+        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, -1, -1));
 
         jLabel11.setText("Grupo");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
@@ -214,7 +214,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 jButtonEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 620, -1, -1));
+        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 620, -1, -1));
 
         jTextFieldPreco3.setEditable(false);
 

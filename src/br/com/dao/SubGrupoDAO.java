@@ -48,7 +48,7 @@ public class SubGrupoDAO implements IDao {
                 Subgrupo antigo = pesquisarPorId(sg.getIdsubgrupo());
                 antigo = sg;
                 entity.getTransaction().begin();
-                entity.persist(antigo);
+                entity.merge(antigo);
                 entity.getTransaction().commit();
                 return true;
             }

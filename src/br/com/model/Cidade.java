@@ -6,6 +6,8 @@
 
 package br.com.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -19,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cidade.findByIdcidade", query = "SELECT c FROM Cidade c WHERE c.idcidade = :idcidade"),
     @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome = :nome")})
 public class Cidade implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcidade")
+    private List<Fornecedor> fornecedorList;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -59,7 +66,9 @@ public class Cidade implements Serializable {
     }
 
     public void setIdcidade(Integer idcidade) {
+        Integer oldIdcidade = this.idcidade;
         this.idcidade = idcidade;
+        changeSupport.firePropertyChange("idcidade", oldIdcidade, idcidade);
     }
 
     public String getNome() {
@@ -67,7 +76,9 @@ public class Cidade implements Serializable {
     }
 
     public void setNome(String nome) {
+        String oldNome = this.nome;
         this.nome = nome;
+        changeSupport.firePropertyChange("nome", oldNome, nome);
     }
 
     public Estado getIdestado() {
@@ -75,7 +86,9 @@ public class Cidade implements Serializable {
     }
 
     public void setIdestado(Estado idestado) {
+        Estado oldIdestado = this.idestado;
         this.idestado = idestado;
+        changeSupport.firePropertyChange("idestado", oldIdestado, idestado);
     }
 
 //    @XmlTransient
@@ -110,6 +123,23 @@ public class Cidade implements Serializable {
     @Override
     public String toString() {
         return "br.com.model.Cidade[ idcidade=" + idcidade + " ]";
+    }
+
+    @XmlTransient
+    public List<Fornecedor> getFornecedorList() {
+        return fornecedorList;
+    }
+
+    public void setFornecedorList(List<Fornecedor> fornecedorList) {
+        this.fornecedorList = fornecedorList;
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
