@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -38,7 +39,7 @@ public class TelaGrupo extends javax.swing.JFrame {
         jComboBoxGrupo.setVisible(false);
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
-        
+
         jPanel1.setSize(this.getSize());
 
     }
@@ -57,12 +58,6 @@ public class TelaGrupo extends javax.swing.JFrame {
         grupoQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT g FROM Grupo g");
         grupoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(grupoQuery.getResultList());
         subgrupoListCellRenderer1 = new br.com.renderizadores.SubgrupoListCellRenderer();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jListSelecionados = new javax.swing.JList();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jListNaoSelecionados = new javax.swing.JList();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -76,24 +71,16 @@ public class TelaGrupo extends javax.swing.JFrame {
         jComboBoxGrupo = new javax.swing.JComboBox();
         jButtonAdicionaSubGrupo = new javax.swing.JButton();
         jButtonRemoveSubGrupo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButtonExcluir = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
 
-        jListSelecionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jListSelecionados.setCellRenderer(subgrupoListCellRenderer1);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedElement.subgrupoList}");
-        org.jdesktop.swingbinding.JListBinding jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, eLProperty, jListSelecionados);
-        bindingGroup.addBinding(jListBinding);
-
-        jScrollPane3.setViewportView(jListSelecionados);
-
-        jListNaoSelecionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jListNaoSelecionados.setCellRenderer(subgrupoListCellRenderer1);
-        jScrollPane2.setViewportView(jListNaoSelecionados);
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, grupoList, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idgrupo}"));
@@ -116,36 +103,6 @@ public class TelaGrupo extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, grupoList, jTable1);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idgrupo}"));
-        columnBinding.setColumnName("Idgrupo");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${descricao}"));
-        columnBinding.setColumnName("Descricao");
-        columnBinding.setColumnClass(String.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
-        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable1KeyPressed(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
-        }
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
-        }
-
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.descricao}"), jTextField1, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
@@ -158,8 +115,8 @@ public class TelaGrupo extends javax.swing.JFrame {
         jListSelecionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListSelecionados.setCellRenderer(subgrupoListCellRenderer1);
 
-        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedElement.subgrupoList}");
-        jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, eLProperty, jListSelecionados);
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedElement.subgrupoList}");
+        org.jdesktop.swingbinding.JListBinding jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, eLProperty, jListSelecionados);
         bindingGroup.addBinding(jListBinding);
 
         jScrollPane3.setViewportView(jListSelecionados);
@@ -191,10 +148,16 @@ public class TelaGrupo extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jListSelecionados, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonRemoveSubGrupo, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jButton1.setText("Sair");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonRemoveSubGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonRemoveSubGrupoActionPerformed(evt);
+            }
+        });
+
+        jButtonSair.setText("Sair");
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
             }
         });
 
@@ -204,12 +167,23 @@ public class TelaGrupo extends javax.swing.JFrame {
 
         jLabel4.setText("Titulo");
 
+        jButtonExcluir.setText("Excluir");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonExcluir, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,24 +193,27 @@ public class TelaGrupo extends javax.swing.JFrame {
                                 .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton1)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jButtonAdicionaSubGrupo)
-                                                .addComponent(jButtonRemoveSubGrupo))))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel3))))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButtonAdicionaSubGrupo)
+                                            .addComponent(jButtonRemoveSubGrupo))))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(217, 217, 217)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(197, 197, 197)
+                        .addComponent(jButtonExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonSair)))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -267,9 +244,11 @@ public class TelaGrupo extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSair)
+                    .addComponent(jButtonExcluir))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         jScrollPane4.setViewportView(jPanel1);
@@ -308,7 +287,7 @@ public class TelaGrupo extends javax.swing.JFrame {
         atualizaJList();
     }//GEN-LAST:event_jComboBoxGrupoItemStateChanged
 
-    private void atualizaJList(){
+    private void atualizaJList() {
         Grupo g = (Grupo) jComboBoxGrupo.getSelectedItem();
         if (g != null) {
             subGruposNaoSelecionados = subGrupoDAO.pesquisarNaoContemGrupo(g, "descricao");
@@ -320,11 +299,11 @@ public class TelaGrupo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(TelaGrupo.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
     private void jButtonAdicionaSubGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionaSubGrupoActionPerformed
-        Subgrupo sg = (Subgrupo)jListNaoSelecionados.getSelectedValue();
-        sg.setIdgrupo((Grupo)jComboBoxGrupo.getSelectedItem());
+        Subgrupo sg = (Subgrupo) jListNaoSelecionados.getSelectedValue();
+        sg.setIdgrupo((Grupo) jComboBoxGrupo.getSelectedItem());
         try {
             subGrupoDAO.alterar(sg);
             atualizaJList();
@@ -333,13 +312,33 @@ public class TelaGrupo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAdicionaSubGrupoActionPerformed
 
+
+    private void jButtonRemoveSubGrupoActionPerformed(java.awt.event.ActionEvent evt){
+        JOptionPane.showMessageDialog(rootPane, "teste");
+    }
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt){
+        JOptionPane.showMessageDialog(rootPane, "testando", null, 0);
+        this.dispose();
+    }
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
 
     }//GEN-LAST:event_jTable1KeyPressed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        Grupo g = (Grupo) jComboBoxGrupo.getSelectedItem();
+        if (g.getSubgrupoList().isEmpty())
+            try {
+                boolean excluido = grupoDAO.excluir(g);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -380,9 +379,10 @@ public class TelaGrupo extends javax.swing.JFrame {
     private javax.persistence.EntityManager entityManager;
     private java.util.List<br.com.model.Grupo> grupoList;
     private javax.persistence.Query grupoQuery;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAdicionaSubGrupo;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonRemoveSubGrupo;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBoxGrupo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
