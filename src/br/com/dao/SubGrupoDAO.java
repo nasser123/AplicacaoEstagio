@@ -7,8 +7,12 @@ package br.com.dao;
 
 import br.com.config.ConnectionFactory;
 import br.com.model.Grupo;
+import br.com.model.ListaAtributoSubgrupo;
 import br.com.model.Subgrupo;
+import br.com.model.TipoAtributo;
+import br.com.renderizadores.TiposAtributosCellRenderer;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -38,6 +42,23 @@ public class SubGrupoDAO implements IDao {
             }
         }
         return false;
+    }
+
+    public Subgrupo inserirComRetorno(Object objeto) throws SQLException {
+        if (objeto instanceof Subgrupo) {
+            Subgrupo sg = (Subgrupo) objeto;
+            if (!existeSubgrupo(sg.getDescricao())) {
+                entity.getTransaction().begin();
+                entity.persist(sg);
+                entity.getTransaction().commit();
+
+                if (sg.getIdsubgrupo() == null) {
+                    sg = this.pesquisarPorDescricao(sg.getDescricao());
+                }
+                return sg;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -107,7 +128,7 @@ public class SubGrupoDAO implements IDao {
 
     public List<Subgrupo> pesquisarNaoContemGrupo(Grupo idGrupo, String criterioOrdenamento) {
         if (idGrupo != null) {
-            subGrupos =  entity.createNativeQuery("Select * from subgrupo where idgrupo <> " + idGrupo.getIdgrupo() + " order by  " + criterioOrdenamento, Subgrupo.class).getResultList();
+            subGrupos = entity.createNativeQuery("Select * from subgrupo where idgrupo <> " + idGrupo.getIdgrupo() + " order by  " + criterioOrdenamento, Subgrupo.class).getResultList();
         }
         return subGrupos;
 
@@ -120,6 +141,27 @@ public class SubGrupoDAO implements IDao {
             return true;
         }
         return false;
+    }
+
+    public List<TipoAtributo> pesquisarNaoContemTiposAtributos(Subgrupo s) {
+        List<TipoAtributo> tiposAtributos;
+        tiposAtributos = entity.createNativeQuery("Select * from tipo_atributo where idtipo_atributo not in ( "
+                + "Select idtipo_atributo from lista_atributo_subgrupo where idsubgrupo = " + s.getIdsubgrupo() + ")", TipoAtributo.class).getResultList();
+
+        return tiposAtributos;
+    }
+
+    public Subgrupo pesquisarPorDescricao(String s) {
+        Subgrupo sg = (Subgrupo) entity.createNamedQuery("Subgrupo.findByDescricao").setParameter("descricao", s).getSingleResult();
+
+        return sg;
+    }
+
+    public List<TipoAtributo> pesquisarTiposAtributos(Subgrupo s) {
+        Subgrupo sg = s;
+        List<TipoAtributo> listaTiposAtributos = new ArrayList();
+        listaTiposAtributos = entity.createNativeQuery("Select idtipo_atributo from lista_atributo_subgrupo where idsubgrupo = " + s.getIdsubgrupo() , TipoAtributo.class).getResultList();
+        return listaTiposAtributos;
     }
 
 }

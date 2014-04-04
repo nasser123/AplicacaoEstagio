@@ -50,6 +50,7 @@ public class TelaSubgrupo extends javax.swing.JFrame {
         grupoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : grupoQuery.getResultList();
         grupoListCellRenderer1 = new br.com.renderizadores.GrupoListCellRenderer();
         subgrupoListCellRenderer1 = new br.com.renderizadores.SubgrupoListCellRenderer();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jComboBoxGrupo = new javax.swing.JComboBox();
@@ -59,12 +60,19 @@ public class TelaSubgrupo extends javax.swing.JFrame {
         jComboBoxSubgrupo = new javax.swing.JComboBox();
         jButtonGravar = new javax.swing.JButton();
         jButtonNovo = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
 
         grupoListCellRenderer1.setText("grupoListCellRenderer1");
 
         subgrupoListCellRenderer1.setText("subgrupoListCellRenderer1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -91,6 +99,8 @@ public class TelaSubgrupo extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
         }
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 58, 510, 187));
+
         jComboBoxGrupo.setRenderer(grupoListCellRenderer1);
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, grupoList, jComboBoxGrupo);
@@ -98,12 +108,18 @@ public class TelaSubgrupo extends javax.swing.JFrame {
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idgrupo}"), jComboBoxGrupo, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
+        jPanel1.add(jComboBoxGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 350, 256, -1));
+
         jLabel1.setText("Grupo");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 325, -1, -1));
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.descricao}"), jTextField1, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 294, 510, -1));
+
         jLabel2.setText("Subgrupo");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 266, -1, -1));
 
         jComboBoxSubgrupo.setRenderer(subgrupoListCellRenderer1);
 
@@ -112,7 +128,12 @@ public class TelaSubgrupo extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement}"), jComboBoxSubgrupo, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
+        jPanel1.add(jComboBoxSubgrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 263, 151, -1));
+
+        jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/save_64.png"))); // NOI18N
         jButtonGravar.setText("Gravar");
+        jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGravar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonGravar, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -122,59 +143,71 @@ public class TelaSubgrupo extends javax.swing.JFrame {
                 jButtonGravarActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 460, 90, 90));
 
+        jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/plus_64.png"))); // NOI18N
         jButtonNovo.setText("Novo");
+        jButtonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNovoActionPerformed(evt);
             }
         });
+        jPanel1.add(jButtonNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(298, 460, 90, 90));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Subgrupos");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 598, -1));
+
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/pencil_64.png"))); // NOI18N
+        jButtonEditar.setText("Editar");
+        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonEditar, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, 90, 90));
+
+        jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/trash_64.png"))); // NOI18N
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonExcluir, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jPanel1.add(jButtonExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(82, 460, 90, 90));
+
+        jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/exit_64.png"))); // NOI18N
+        jButtonSair.setText("Sair");
+        jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(518, 460, 90, 90));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBoxSubgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonNovo)
-                                .addGap(41, 41, 41)
-                                .addComponent(jButtonGravar))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(98, Short.MAX_VALUE))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBoxSubgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGravar)
-                    .addComponent(jButtonNovo))
-                .addGap(60, 60, 60))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
         );
 
         bindingGroup.bind();
@@ -199,8 +232,17 @@ public class TelaSubgrupo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        new TelaNovoSubgrupo().setVisible(true);
+        new TelaCadastroSubgrupo().setVisible(true);
     }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        Subgrupo s = (Subgrupo)jComboBoxSubgrupo.getSelectedItem();
+        new TelaCadastroSubgrupo(s).setVisible(true);
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,12 +284,17 @@ public class TelaSubgrupo extends javax.swing.JFrame {
     private java.util.List<br.com.model.Grupo> grupoList;
     private br.com.renderizadores.GrupoListCellRenderer grupoListCellRenderer1;
     private javax.persistence.Query grupoQuery;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonNovo;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBoxGrupo;
     private javax.swing.JComboBox jComboBoxSubgrupo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

@@ -37,11 +37,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jButtonGrupos = new javax.swing.JButton();
+        jButtonVenda = new javax.swing.JButton();
         jButtonProdutos = new javax.swing.JButton();
         jButtonSubgrupos = new javax.swing.JButton();
-        jButtonVenda = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButtonUsuarios = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         Produtos = new javax.swing.JMenu();
@@ -61,7 +64,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jButtonGrupos.setText("Grupos");
         jButtonGrupos.addActionListener(new java.awt.event.ActionListener() {
@@ -70,7 +73,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButtonVenda.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/buy_64.png"))); // NOI18N
+        jButtonVenda.setText("Venda");
+        jButtonVenda.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonVenda.setPreferredSize(new java.awt.Dimension(97, 97));
+        jButtonVenda.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVendaActionPerformed(evt);
+            }
+        });
+
+        jButtonProdutos.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/file-roller.png"))); // NOI18N
         jButtonProdutos.setText("Produtos");
+        jButtonProdutos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonProdutos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonProdutosActionPerformed(evt);
@@ -84,12 +103,75 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButtonVenda.setText("Venda");
-        jButtonVenda.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("jLabel1");
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/exit_64.png"))); // NOI18N
+        jButton1.setText("Sair");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonVendaActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
+
+        jButtonUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/user_64.png"))); // NOI18N
+        jButtonUsuarios.setText("Usuários");
+        jButtonUsuarios.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonUsuarios.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUsuariosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButtonSubgrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(62, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonUsuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSubgrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
         jMenuCadastros.setText("Cadastros");
 
@@ -196,35 +278,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButtonSubgrupos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                            .addComponent(jButtonGrupos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonProdutos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(42, 42, 42)
-                        .addComponent(jButtonVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(185, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonProdutos)
-                    .addComponent(jButtonVenda))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonGrupos)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonSubgrupos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -289,6 +347,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         new TelaSubgrupo().setVisible(true);
     }//GEN-LAST:event_jMenuItemSubgruposActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+                
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+    }//GEN-LAST:event_jButtonUsuariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -326,9 +393,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Produtos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonGrupos;
     private javax.swing.JButton jButtonProdutos;
     private javax.swing.JButton jButtonSubgrupos;
+    private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JButton jButtonVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
@@ -346,5 +415,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemProdutos;
     private javax.swing.JMenuItem jMenuItemSubgrupos;
     private javax.swing.JMenuItem jMenuItemVenda;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

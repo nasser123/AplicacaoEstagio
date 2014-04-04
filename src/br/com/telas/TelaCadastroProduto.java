@@ -16,6 +16,7 @@ import br.com.model.Fabricante;
 import br.com.model.Grupo;
 import br.com.model.Produto;
 import br.com.model.Subgrupo;
+import br.com.utilidades.ConfigTelas;
 import br.com.utilidades.Validadores;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -45,16 +46,18 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         pdao = new ProdutoDAO();
         this.produto = produto;
         initComponents();
+        ConfigTelas ct = new ConfigTelas(this);
+        ct.carregarConfig(this);
 
     }
 
     public TelaCadastroProduto() throws SQLException {
-        //this.idproduto = idproduto;
         pdao = new ProdutoDAO();
         novo = true;
-
-        // this.produto = pdao.pesquisarPorId(idproduto);
         initComponents();
+        ConfigTelas ct = new ConfigTelas(this);
+        ct.carregarConfig(this);
+
         jButtonExcluir.setVisible(false);
         liberaCampos();
 
@@ -113,6 +116,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jButtonSair = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
 
         gruposListCellRenderer1.setText("gruposListCellRenderer1");
 
@@ -122,6 +126,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldDescricao.setEditable(false);
@@ -207,13 +212,21 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jPanel1.add(jFormattedTextFieldEstoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 247, 80, -1));
 
+        jButtonGravar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/save_64.png"))); // NOI18N
         jButtonGravar.setText("Gravar");
+        jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGravar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, produto1, org.jdesktop.beansbinding.ELProperty.create("${descricao!=null}"), jButtonGravar, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
         jButtonGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGravarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 620, -1, -1));
+        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 460, 90, 90));
 
         jLabel11.setText("Grupo");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
@@ -221,13 +234,17 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jLabel12.setText("Subgrupo");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 290, -1, -1));
 
+        jButtonEditar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/pencil_64.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 620, -1, -1));
+        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 90, 90));
 
         jTextFieldPreco3.setEditable(false);
 
@@ -308,29 +325,46 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jPanel1.add(jComboBoxSubGrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 310, 220, -1));
 
+        jButtonSair.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/exit_64.png"))); // NOI18N
         jButtonSair.setText("Sair");
+        jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSairActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 620, -1, -1));
+        jPanel1.add(jButtonSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, 90, 90));
 
+        jButtonCancelar.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/block_64.png"))); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 620, -1, -1));
+        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, 90, 90));
 
+        jButtonExcluir.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/trash_64.png"))); // NOI18N
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExcluirActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 620, -1, -1));
+        jPanel1.add(jButtonExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, 90, 90));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Cadastro de Produtos");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 0, 340, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -340,7 +374,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -365,29 +401,27 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 }
             } else {
                 produto1 = new Produto();
-                produto1.setCodigo(Integer.parseInt(jTextFieldCodigo.getText()));
-                produto1.setCodigobarras(jTextFieldCodigoBarras.getText());
-                produto1.setDescricao(jTextFieldDescricao.getText());
-                produto1.setPrecoVenda1(new BigDecimal(jTextFieldPreco1.getText()));
-                produto1.setPrecoVenda2(new BigDecimal(jTextFieldPreco2.getText()));
-                produto1.setPrecoVenda3(new BigDecimal(jTextFieldPreco3.getText()));
-                produto1.setEntrada(Integer.parseInt(jFormattedTextFieldEntrada.getText()));
-                produto1.setSaida(Integer.parseInt(jFormattedTextFieldSaidas.getText()));
-                produto1.setEstoqueMinimo(Integer.parseInt(jFormattedTextFieldEstoqueMinimo.getText()));
-                produto1.setIdsubgrupo((Subgrupo) jComboBoxSubGrupo.getSelectedItem());
-                produto1.setIdfabricante((Fabricante) jComboBoxFabricante.getSelectedItem());
 
                 try {
-
+                    produto1.setCodigo(Integer.parseInt(jTextFieldCodigo.getText()));
+                    produto1.setCodigobarras(jTextFieldCodigoBarras.getText());
+                    produto1.setDescricao(jTextFieldDescricao.getText());
+                    produto1.setPrecoVenda1(new BigDecimal(jTextFieldPreco1.getText()));
+                    produto1.setPrecoVenda2(new BigDecimal(jTextFieldPreco2.getText()));
+                    produto1.setPrecoVenda3(new BigDecimal(jTextFieldPreco3.getText()));
+                    produto1.setEntrada(Integer.parseInt(jFormattedTextFieldEntrada.getText()));
+                    produto1.setSaida(Integer.parseInt(jFormattedTextFieldSaidas.getText()));
+                    produto1.setEstoqueMinimo(Integer.parseInt(jFormattedTextFieldEstoqueMinimo.getText()));
+                    produto1.setIdsubgrupo((Subgrupo) jComboBoxSubGrupo.getSelectedItem());
+                    produto1.setIdfabricante((Fabricante) jComboBoxFabricante.getSelectedItem());
                     boolean inserido = pdao.inserir(produto1);
                     if (inserido) {
                         JOptionPane.showMessageDialog(rootPane, "Produto gravado com sucesso");
                     }
                     new TelaListaProdutos().setVisible(true);
                     this.dispose();
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NumberFormatException | NullPointerException | SQLException nfe) {
+                    Logger.getLogger(TelaCadastroProduto.class.getName()).log(Level.SEVERE, null, nfe);
                     JOptionPane.showMessageDialog(rootPane, "Verifique erro de digitação", "SisGeMPE", 0);
                 }
 
@@ -541,6 +575,7 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

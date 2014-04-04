@@ -100,14 +100,26 @@ public class TipoAtributoDAO implements IDao {
 
         return tipoAtributos;
     }
-    
 
     public boolean existeTipoAtributo(String descricao) {
-        List fabricantes = entity.createNamedQuery("TipoAtributo.findByDescricao").setParameter("descricao", descricao).getResultList();
-        if (!fabricantes.isEmpty()) {
+        List<TipoAtributo> tipoAtributo = entity.createNamedQuery("TipoAtributo.findByDescricao").setParameter("descricao", descricao).getResultList();
+        if (!tipoAtributo.isEmpty()) {
             return true;
         }
         return false;
+    }
+
+    public List<TipoAtributo> pesquisaTiposAtributosNaoPresentes(List<TipoAtributo> tiposAtributosToRemove) throws SQLException {
+        tipoAtributos = this.pesquisarTodos();
+        for (int i = 0; i < tiposAtributosToRemove.size(); i++) {
+            for (int j = 0; j < tipoAtributos.size(); j++) {
+                if (tiposAtributosToRemove.get(i).equals(tipoAtributos.get(j))) {
+                    tipoAtributos.remove(j);
+                    break;
+                }
+            }
+        }
+        return tipoAtributos;
     }
 
 }

@@ -31,16 +31,15 @@ public class ListaAtributoSubgrupoDAO implements IDao {
     @Override
     public boolean inserir(Object objeto) throws SQLException {
 //        if (objeto instanceof ListaAtributoSubgrupo) {
-            ListaAtributoSubgrupo ta = (ListaAtributoSubgrupo) objeto;
-//            if (!existeListaAtributoSubgrupo(ta.getDescricao())) {
+            ListaAtributoSubgrupo las = (ListaAtributoSubgrupo) objeto;
+            if (!existeListaAtributoSubgrupo(las)) {
                 entity.getTransaction().begin();
-                entity.persist(ta);
+                entity.persist(las);
                 entity.getTransaction().commit();
-
                 return true;
-//            }
+            }
 //        }
-//        return false;
+        return false;
     }
 
     @Override
@@ -102,12 +101,16 @@ public class ListaAtributoSubgrupoDAO implements IDao {
     }
     
 
-    public boolean existeListaAtributoSubgrupo(String descricao) {
-//        List fabricantes = entity.createNamedQuery("TipoAtributo.findByDescricao").setParameter("descricao", descricao).getResultList();
-//        if (!fabricantes.isEmpty()) {
-//            return true;
-//        } 
+    public boolean existeListaAtributoSubgrupo(ListaAtributoSubgrupo las) {
+        List listAtributosSubgrupos = entity.createNativeQuery("SELECT * FROM lista_atributo_subgrupo " +
+                                                                "where idsubgrupo = "+ las.getIdsubgrupo().getIdsubgrupo() + 
+                                                                " and idtipo_atributo = " + las.getIdtipoAtributo().getIdtipoAtributo(), 
+                                                                ListaAtributoSubgrupo.class).getResultList();
+        if (!listAtributosSubgrupos.isEmpty()) {
+            return true;
+        } 
         return false;
     }
+    
 
 }
