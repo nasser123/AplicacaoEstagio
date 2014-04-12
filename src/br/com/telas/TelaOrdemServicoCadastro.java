@@ -386,7 +386,7 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
                             .addComponent(jLabel16)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jComboBoxSituacaoOS, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(167, 167, 167)
                                 .addComponent(jDateChooserAbertura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(274, 274, 274)
