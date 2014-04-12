@@ -96,11 +96,9 @@ public class TelaGrupo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
-        }
+        jTable1.getColumnModel().getColumn(0).setMinWidth(60);
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(60);
+        jTable1.getColumnModel().getColumn(0).setMaxWidth(60);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.descricao}"), jTextField1, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
@@ -219,7 +217,7 @@ public class TelaGrupo extends javax.swing.JFrame {
                             .addComponent(jLabel3)))
                     .addComponent(jScrollPane1)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,12 +270,7 @@ public class TelaGrupo extends javax.swing.JFrame {
         bindingGroup.bind();
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jComboBoxGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxGrupoItemStateChanged
-        atualizaJList();
-    }//GEN-LAST:event_jComboBoxGrupoItemStateChanged
 
     private void atualizaJList() {
         Grupo g = (Grupo) jComboBoxGrupo.getSelectedItem();
@@ -293,6 +286,33 @@ public class TelaGrupo extends javax.swing.JFrame {
         }
 
     }
+
+       
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        Grupo g = (Grupo) jComboBoxGrupo.getSelectedItem();
+        if (g.getSubgrupoList().isEmpty()) {
+            try {
+                boolean excluido = grupoDAO.excluir(g);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaGrupo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "testando", null, 0);
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairActionPerformed
+
+    private void jButtonRemoveSubGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveSubGrupoActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "teste");
+    }//GEN-LAST:event_jButtonRemoveSubGrupoActionPerformed
+
     private void jButtonAdicionaSubGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionaSubGrupoActionPerformed
         Subgrupo sg = (Subgrupo) jListNaoSelecionados.getSelectedValue();
         sg.setIdgrupo((Grupo) jComboBoxGrupo.getSelectedItem());
@@ -304,34 +324,15 @@ public class TelaGrupo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAdicionaSubGrupoActionPerformed
 
+    private void jComboBoxGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxGrupoItemStateChanged
+        atualizaJList();
+    }//GEN-LAST:event_jComboBoxGrupoItemStateChanged
 
-    private void jButtonRemoveSubGrupoActionPerformed(java.awt.event.ActionEvent evt){
-        JOptionPane.showMessageDialog(rootPane, "teste");
-    }
-    
-    
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt){
-        JOptionPane.showMessageDialog(rootPane, "testando", null, 0);
-        this.dispose();
-    }
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
 
-    }//GEN-LAST:event_jTable1KeyPressed
+   }//GEN-LAST:event_jTable1KeyPressed
 
-    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-        Grupo g = (Grupo) jComboBoxGrupo.getSelectedItem();
-        if (g.getSubgrupoList().isEmpty())
-            try {
-                boolean excluido = grupoDAO.excluir(g);
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaGrupo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButtonExcluirActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
