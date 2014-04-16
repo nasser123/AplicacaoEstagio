@@ -45,6 +45,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButtonUsuarios = new javax.swing.JButton();
+        jButtonServicos = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastros = new javax.swing.JMenu();
         Produtos = new javax.swing.JMenu();
@@ -61,6 +62,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemContasPagar = new javax.swing.JMenuItem();
         jMenuItemContasReceber = new javax.swing.JMenuItem();
+        jMenuServicos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,6 +127,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButtonServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/servico_32.png"))); // NOI18N
+        jButtonServicos.setText("Serviços");
+        jButtonServicos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonServicos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonServicosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,7 +150,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addComponent(jButtonProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -146,8 +158,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonSubgrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                                .addComponent(jButtonServicos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,6 +181,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonServicos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -272,6 +288,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
+        jMenuServicos.setText("Serviços");
+        jMenuServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuServicosActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenuServicos);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -356,6 +380,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
     }//GEN-LAST:event_jButtonUsuariosActionPerformed
 
+    private void jButtonServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonServicosActionPerformed
+        new TelaListaOS().setVisible(true);
+    }//GEN-LAST:event_jButtonServicosActionPerformed
+
+    private void jMenuServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuServicosActionPerformed
+         new TelaListaOS().setVisible(true);
+    }//GEN-LAST:event_jMenuServicosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -396,6 +428,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonGrupos;
     private javax.swing.JButton jButtonProdutos;
+    private javax.swing.JButton jButtonServicos;
     private javax.swing.JButton jButtonSubgrupos;
     private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JButton jButtonVenda;
@@ -415,6 +448,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemProdutos;
     private javax.swing.JMenuItem jMenuItemSubgrupos;
     private javax.swing.JMenuItem jMenuItemVenda;
+    private javax.swing.JMenu jMenuServicos;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

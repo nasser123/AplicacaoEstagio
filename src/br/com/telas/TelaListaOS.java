@@ -18,6 +18,7 @@ public class TelaListaOS extends javax.swing.JFrame {
      */
     public TelaListaOS() {
         initComponents();
+        this.jComboBoxOS.setVisible(false);
     }
 
     /**
@@ -32,7 +33,7 @@ public class TelaListaOS extends javax.swing.JFrame {
 
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
         ordemServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT o FROM OrdemServico o");
-        ordemServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : ordemServicoQuery.getResultList();
+        ordemServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(ordemServicoQuery.getResultList());
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -40,6 +41,8 @@ public class TelaListaOS extends javax.swing.JFrame {
         jComboBoxOS = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButtonNovo = new javax.swing.JButton();
+        jButtonAtualiza = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -58,9 +61,9 @@ public class TelaListaOS extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataAbertura}"));
         columnBinding.setColumnName("Data Abertura");
         columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idequipamento}"));
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idequipamento.descricao}"));
         columnBinding.setColumnName("Equipamento");
-        columnBinding.setColumnClass(br.com.model.Equipamento.class);
+        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idsituacaoOs.descricao}"));
         columnBinding.setColumnName("Situação");
         columnBinding.setColumnClass(String.class);
@@ -102,6 +105,20 @@ public class TelaListaOS extends javax.swing.JFrame {
             }
         });
 
+        jButtonNovo.setText("Nova");
+        jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNovoActionPerformed(evt);
+            }
+        });
+
+        jButtonAtualiza.setText("Atualiza");
+        jButtonAtualiza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAtualizaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,7 +126,11 @@ public class TelaListaOS extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(99, 99, 99)
                 .addComponent(jComboBoxOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
+                .addComponent(jButtonAtualiza)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonNovo)
+                .addGap(87, 87, 87)
                 .addComponent(jButtonVisualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
@@ -131,13 +152,16 @@ public class TelaListaOS extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonVisualizar)
-                        .addComponent(jButton1))
-                    .addComponent(jComboBoxOS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(89, 89, 89))
+                        .addComponent(jButton1)
+                        .addComponent(jButtonNovo))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonAtualiza)))
+                .addGap(87, 87, 87))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -162,7 +186,7 @@ public class TelaListaOS extends javax.swing.JFrame {
         if (jComboBoxOS.getSelectedIndex() != -1) {
             OrdemServico os = new OrdemServico();
             os = (OrdemServico) jComboBoxOS.getSelectedItem();
-            TelaOrdemServicoCadastro tosc = new TelaOrdemServicoCadastro(os);
+            TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(os);
             tosc.setVisible(true);
             this.dispose();
         }
@@ -172,6 +196,15 @@ public class TelaListaOS extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+        new TelaCadastroOrdemServico().setVisible(true);
+    }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void jButtonAtualizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizaActionPerformed
+        
+        
+    }//GEN-LAST:event_jButtonAtualizaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,6 +250,8 @@ public class TelaListaOS extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager SistotalPUEntityManager;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAtualiza;
+    private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonVisualizar;
     private javax.swing.JComboBox jComboBoxOS;
     private javax.swing.JLabel jLabel1;

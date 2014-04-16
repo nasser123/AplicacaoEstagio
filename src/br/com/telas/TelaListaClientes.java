@@ -104,7 +104,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Cliente c = new Cliente();
         c = (Cliente) jComboBox1.getSelectedItem();
-        TelaOrdemServicoCadastro tosc = new TelaOrdemServicoCadastro(c);
+        TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(c);
         tosc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

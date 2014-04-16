@@ -23,6 +23,7 @@
         <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
           <ComponentRef name="ordemServicoQuery"/>
         </Property>
+        <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.model.OrdemServico&gt;"/>
@@ -76,7 +77,11 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                   <Component id="jComboBoxOS" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                  <Component id="jButtonAtualiza" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jButtonNovo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                   <Component id="jButtonVisualizar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" max="-2" attributes="0"/>
@@ -104,15 +109,19 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="265" max="-2" attributes="0"/>
-                  <EmptySpace pref="144" max="32767" attributes="0"/>
+                  <EmptySpace pref="146" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                           <Component id="jButtonVisualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonNovo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jComboBoxOS" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                          <Component id="jComboBoxOS" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonAtualiza" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -178,9 +187,9 @@
                     <BindingParameter name="NAME" value="Data Abertura"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
                   </Subbinding>
-                  <Subbinding sourcePath="${idequipamento}">
+                  <Subbinding sourcePath="${idequipamento.descricao}">
                     <BindingParameter name="NAME" value="Equipamento"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="br.com.model.Equipamento.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                   </Subbinding>
                   <Subbinding sourcePath="${idsituacaoOs.descricao}">
                     <BindingParameter name="NAME" value="Situa&#xe7;&#xe3;o"/>
@@ -222,6 +231,22 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonNovo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Nova"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNovoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonAtualiza">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualiza"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAtualizaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -505,7 +505,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         }
 
         if (this.testeOS == true) {
-            TelaOrdemServicoCadastro tosc = new TelaOrdemServicoCadastro(c);
+            TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(c);
             tosc.setVisible(true);
             this.dispose();
 

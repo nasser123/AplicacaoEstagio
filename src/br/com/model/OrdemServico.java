@@ -34,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "OrdemServico.findAll", query = "SELECT o FROM OrdemServico o"),
     @NamedQuery(name = "OrdemServico.findByIdordemServico", query = "SELECT o FROM OrdemServico o WHERE o.idordemServico = :idordemServico"),
+    @NamedQuery(name = "OrdemServico.findByIdcliente", query = "SELECT o FROM OrdemServico o WHERE o.idcliente = :idcliente"),
+    @NamedQuery(name = "OrdemServico.findByIdsituacao_os", query = "SELECT o FROM OrdemServico o WHERE o.idsituacaoOs = :idsituacao_os"),
     @NamedQuery(name = "OrdemServico.findByDataAbertura", query = "SELECT o FROM OrdemServico o WHERE o.dataAbertura = :dataAbertura"),
     @NamedQuery(name = "OrdemServico.findByDataTermino", query = "SELECT o FROM OrdemServico o WHERE o.dataTermino = :dataTermino"),
     @NamedQuery(name = "OrdemServico.findByProcessador", query = "SELECT o FROM OrdemServico o WHERE o.processador = :processador"),

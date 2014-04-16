@@ -5,33 +5,39 @@
 package br.com.telas;
 
 import br.com.config.ConnectionFactory;
+import br.com.dao.ClienteDAO;
+import br.com.dao.OrdemServicoDAO;
 import br.com.model.Cliente;
 import br.com.model.Equipamento;
 import br.com.model.OrdemServico;
 import br.com.model.SituacaoOs;
 import br.com.utilidades.Datas;
+import java.math.BigInteger;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Produção
  */
-public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
+public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
     /**
      * Creates new form OrdemServicoCadastro
      */
-    Cliente cliente;
-    OrdemServico osCad;
+    private Cliente cliente;
+    private OrdemServico osCad;
 
-    public TelaOrdemServicoCadastro() {
+    public TelaCadastroOrdemServico() {
         initComponents();
         jDateChooserAbertura.setDate(Datas.getCurrentTime());
         jLabelTitulo.setText("Ordem de Serviço");
-         jLabelNrOs.setText("");
+        jLabelNrOs.setText("");
     }
 
-    public TelaOrdemServicoCadastro(Cliente c) {
+    public TelaCadastroOrdemServico(Cliente c) {
         this.osCad = new OrdemServico();
         this.cliente = c;
         initComponents();
@@ -41,14 +47,15 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
         jTextFieldFone.setText(this.cliente.getFone().toString());
         jDateChooserAbertura.setDate(Datas.getCurrentTime());
         jLabelNrOs.setText("");
-        
-        
+
     }
 
-    public TelaOrdemServicoCadastro(OrdemServico os) {
+    public TelaCadastroOrdemServico(OrdemServico os) {
         initComponents();
         this.osCad = os;
-        jDateChooserAbertura.setDate(Datas.getCurrentTime());
+        this.cliente = this.osCad.getIdcliente();
+        
+       // jDateChooserAbertura.setDate(Datas.getCurrentTime());
         preencheTodosDados();
         jLabelTitulo.setText("Ordem de Serviço N° ");
         bloqueiaEdicao();
@@ -73,7 +80,7 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
         jComboBoxEquipamento.setSelectedItem(this.osCad.getIdequipamento());
         jComboBoxSituacaoOS.setSelectedItem(this.osCad.getIdsituacaoOs());
         jLabelNrOs.setText(this.osCad.getIdordemServico().toString());
-
+        jDateChooserAbertura.setDate(this.osCad.getDataAbertura());
     }
 
     private void bloqueiaEdicao() {
@@ -114,7 +121,6 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
         jTextAreaObservacoes.setEnabled(true);
 
         jButtonGravar.setEnabled(true);
-
 
     }
 
@@ -525,6 +531,7 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
 
+        OrdemServicoDAO osd = new OrdemServicoDAO();
         this.osCad.setProcessador(this.jTextFieldProcessador.getText());
         this.osCad.setMemoria(this.jTextFieldMemoria.getText());
         this.osCad.setDiscoRigido(this.jTextFieldDiscoRigido.getText());
@@ -536,43 +543,60 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
         this.osCad.setObservacao(jTextAreaObservacoes.getText());
         this.osCad.setIdsituacaoOs((SituacaoOs) jComboBoxSituacaoOS.getSelectedItem());
         this.osCad.setDataAbertura(jDateChooserAbertura.getDate());
-        this.osCad.setIdcliente(new Cliente(Integer.parseInt(jTextFieldCodigo.getText())));
+        if (this.cliente.getIdcliente() != null) {
+            this.osCad.setIdcliente(this.cliente);
+        } else {
+            ClienteDAO cd = new ClienteDAO();
 
-
+            this.cliente.setNome(jTextFieldNome.getText());
+            this.cliente.setCelular(new BigInteger(jTextFieldCelular.getText()));
+            this.cliente.setFone(new BigInteger(jTextFieldFone.getText()));
+            try {
+                cd.inserir(this.cliente);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.osCad.setIdcliente(this.cliente);
+        }
 
         if (this.osCad.getIdordemServico() != null) {
-            
-            
-            SistotalPUEntityManager.getTransaction().begin();
-            SistotalPUEntityManager.merge(this.osCad);
-            SistotalPUEntityManager.getTransaction().commit();
 
-            JOptionPane.showMessageDialog(rootPane, "Ordem de serviço alterada com sucesso");
-            TelaListaOS tlo = new TelaListaOS();
-            tlo.setVisible(true);
-                    
+            try {
+                osd.alterar(this.osCad);
+                JOptionPane.showMessageDialog(rootPane, "Ordem de serviço alterada com sucesso");
+                TelaListaOS tlo = new TelaListaOS();
+                tlo.setVisible(true);
 
-            this.dispose();
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+//            SistotalPUEntityManager.getTransaction().begin();
+//            SistotalPUEntityManager.merge(this.osCad);
+//            SistotalPUEntityManager.getTransaction().commit();
         } else {
             OrdemServico os = new OrdemServico();
             os = this.osCad;
-            SistotalPUEntityManager.getTransaction().begin();
-            SistotalPUEntityManager.persist(os);
-            SistotalPUEntityManager.getTransaction().commit();
+            try {
+                osd.inserir(this.osCad);
+                JOptionPane.showMessageDialog(rootPane, "Ordem de serviço gravada com sucesso");
+                TelaCadastroOrdemServico osc = new TelaCadastroOrdemServico();
+                osc.setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-            JOptionPane.showMessageDialog(rootPane, "Ordem de serviço gravada com sucesso");
-            TelaOrdemServicoCadastro osc = new TelaOrdemServicoCadastro();
-            osc.setVisible(true);
-            this.dispose();
-
-
+//            SistotalPUEntityManager.getTransaction().begin();
+//            SistotalPUEntityManager.persist(os);
+//            SistotalPUEntityManager.getTransaction().commit();
         }
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        TelaCadastroCliente tcc = new TelaCadastroCliente(true);
-        tcc.setVisible(true);
+        new TelaCadastroCliente().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
@@ -581,13 +605,13 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if(this.osCad != null){
+        if (this.osCad != null) {
             TelaListaOS tlo = new TelaListaOS();
             tlo.setVisible(true);
             this.dispose();
-        }else{
+        } else {
             this.dispose();
-        
+
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -612,13 +636,13 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaOrdemServicoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaOrdemServicoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaOrdemServicoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaOrdemServicoCadastro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -628,7 +652,7 @@ public class TelaOrdemServicoCadastro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new TelaOrdemServicoCadastro().setVisible(true);
+                new TelaCadastroOrdemServico().setVisible(true);
             }
         });
     }
