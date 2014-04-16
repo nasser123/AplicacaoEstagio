@@ -16,14 +16,17 @@
  * and open the template in the editor.
  */
 
+
 package br.com.telas;
 
 import br.com.dao.UsuarioDAO;
 import br.com.utilidades.ConfigTelas;
+import br.com.utilidades.Datas;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -57,6 +60,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,11 +122,14 @@ public class TelaLogin extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextField1)
                             .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(83, 83, 83)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(57, 57, 57))
         );
         jPanel1Layout.setVerticalGroup(
@@ -138,7 +145,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86)
+                .addGap(32, 32, 32)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))
@@ -161,21 +170,25 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean login = false; 
+        boolean login = false;
+        long tempo = 0;
         try {
+            tempo = System.currentTimeMillis();
+            System.out.println(tempo);
             login = this.realizarLogin();
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       // boolean login = true;
-    if (login) {
-        TelaPrincipal tp = new TelaPrincipal();
-        tp.setVisible(true);
-        this.dispose();
-    } else {
-        JOptionPane.showMessageDialog(rootPane, "O nome do usuário ou a senha estão incorretos!", "SiGeMPE - Login Incorreto", JOptionPane.ERROR_MESSAGE);
-    }
+
+        // boolean login = true;
+        if (login) {
+            System.out.println((System.currentTimeMillis() - tempo)/1000);
+            TelaPrincipal tp = new TelaPrincipal();
+            tp.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "O nome do usuário ou a senha estão incorretos!", "SiGeMPE - Login Incorreto", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
@@ -229,16 +242,16 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-
- private boolean realizarLogin() throws NoSuchAlgorithmException {
+    private boolean realizarLogin() throws NoSuchAlgorithmException {
         String usuario = jTextField1.getText();
         //String senha = String.valueOf(jPasswordFieldSenha.getPassword());
         char[] senhaTemp = jPasswordField1.getPassword();
-        String senha= "";
-        for(int i = 0 ; i < senhaTemp.length ; i++){
+        String senha = "";
+        for (int i = 0; i < senhaTemp.length; i++) {
             senha = senha + senhaTemp[i];
         }
 //        System.out.println(senha);
@@ -248,5 +261,26 @@ public class TelaLogin extends javax.swing.JFrame {
         return loginCorreto;
     }
 
+    private void atualizaBarras() {
+//        for (int i = 0; i <= 100; i++) {
+//            final int percent = i;
+//            try {
+//                java.awt.EventQueue.invokeLater(new Runnable() {
+//                   
+//                    public void run() {
+//                        atualizaBarra(percent);
+//                    }
+//                });
+//                atualizaBarra(percent);
+//                Thread.sleep(5);
+//            } catch (InterruptedException e) {
+//
+//            }
+//        }
 
+    }
+    
+//    private void atualizaBarra(int valor) {
+//        jProgressBar1.setValue(valor);
+//    }
 }
