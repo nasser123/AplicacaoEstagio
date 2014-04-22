@@ -46,6 +46,16 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;br.com.model.SituacaoOs&gt;"/>
       </AuxValues>
     </Component>
+    <Component class="br.com.renderizadores.EquipamentoListCellRenderer" name="equipamentoListCellRenderer1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="equipamentoListCellRenderer1"/>
+      </Properties>
+    </Component>
+    <Component class="br.com.renderizadores.SituacaoOsListCellRenderer" name="situacaoOsListCellRenderer1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="situacaoOsListCellRenderer1"/>
+      </Properties>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
@@ -358,11 +368,21 @@
         <Component class="javax.swing.JTextField" name="jTextFieldDiscoRigido">
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxEquipamento">
+          <Properties>
+            <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="equipamentoListCellRenderer1"/>
+            </Property>
+          </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="equipamentoList" target="jComboBoxEquipamento" targetPath="elements" updateStrategy="0" immediately="false"/>
           </BindingProperties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxSituacaoOS">
+          <Properties>
+            <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="situacaoOsListCellRenderer1"/>
+            </Property>
+          </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="situacaoOsList" target="jComboBoxSituacaoOS" targetPath="elements" updateStrategy="0" immediately="false"/>
           </BindingProperties>

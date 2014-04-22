@@ -105,6 +105,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }
 
     private void liberaEdicao() {
+        jButtonPesquisar.setEnabled(true);
         jTextFieldCodigo.setEnabled(true);
         jTextFieldNome.setEnabled(true);
         jTextFieldFone.setEnabled(true);
@@ -139,6 +140,8 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         equipamentoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : equipamentoQuery.getResultList();
         situacaoOsQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT s FROM SituacaoOs s");
         situacaoOsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : situacaoOsQuery.getResultList();
+        equipamentoListCellRenderer1 = new br.com.renderizadores.EquipamentoListCellRenderer();
+        situacaoOsListCellRenderer1 = new br.com.renderizadores.SituacaoOsListCellRenderer();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaEfeitoCliente = new javax.swing.JTextArea();
@@ -183,6 +186,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabelNrOs = new javax.swing.JLabel();
         jDateChooserAbertura = new com.toedter.calendar.JDateChooser();
 
+        equipamentoListCellRenderer1.setText("equipamentoListCellRenderer1");
+
+        situacaoOsListCellRenderer1.setText("situacaoOsListCellRenderer1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -197,8 +204,12 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
             }
         });
 
+        jComboBoxEquipamento.setRenderer(equipamentoListCellRenderer1);
+
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, equipamentoList, jComboBoxEquipamento);
         bindingGroup.addBinding(jComboBoxBinding);
+
+        jComboBoxSituacaoOS.setRenderer(situacaoOsListCellRenderer1);
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, situacaoOsList, jComboBoxSituacaoOS);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -605,14 +616,14 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        if (this.osCad != null) {
+    //    if (this.osCad != null) {
             TelaListaOS tlo = new TelaListaOS();
             tlo.setVisible(true);
             this.dispose();
-        } else {
-            this.dispose();
-
-        }
+//        } else {
+//            this.dispose();
+//
+//        }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
@@ -659,6 +670,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager SistotalPUEntityManager;
     private java.util.List<br.com.model.Equipamento> equipamentoList;
+    private br.com.renderizadores.EquipamentoListCellRenderer equipamentoListCellRenderer1;
     private javax.persistence.Query equipamentoQuery;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
@@ -704,6 +716,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPlacaMae;
     private javax.swing.JTextField jTextFieldProcessador;
     private java.util.List<br.com.model.SituacaoOs> situacaoOsList;
+    private br.com.renderizadores.SituacaoOsListCellRenderer situacaoOsListCellRenderer1;
     private javax.persistence.Query situacaoOsQuery;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
