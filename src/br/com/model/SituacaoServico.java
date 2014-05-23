@@ -6,6 +6,8 @@
 
 package br.com.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -19,6 +21,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -34,6 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "SituacaoServico.findByIdsituacaoServico", query = "SELECT s FROM SituacaoServico s WHERE s.idsituacaoServico = :idsituacaoServico"),
     @NamedQuery(name = "SituacaoServico.findByDescricao", query = "SELECT s FROM SituacaoServico s WHERE s.descricao = :descricao")})
 public class SituacaoServico implements Serializable {
+    
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,7 +63,9 @@ public class SituacaoServico implements Serializable {
     }
 
     public void setIdsituacaoServico(Integer idsituacaoServico) {
+        Integer oldIdsituacaoServico = this.idsituacaoServico;
         this.idsituacaoServico = idsituacaoServico;
+        changeSupport.firePropertyChange("idsituacaoServico", oldIdsituacaoServico, idsituacaoServico);
     }
 
     public String getDescricao() {
@@ -65,7 +73,9 @@ public class SituacaoServico implements Serializable {
     }
 
     public void setDescricao(String descricao) {
+        String oldDescricao = this.descricao;
         this.descricao = descricao;
+        changeSupport.firePropertyChange("descricao", oldDescricao, descricao);
     }
 
     @XmlTransient
@@ -101,5 +111,15 @@ public class SituacaoServico implements Serializable {
     public String toString() {
         return "br.com.model.SituacaoServico[ idsituacaoServico=" + idsituacaoServico + " ]";
     }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
+    }
+
+    
     
 }

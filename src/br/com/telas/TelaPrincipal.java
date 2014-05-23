@@ -336,7 +336,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemFornecedoresActionPerformed
 
     private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Não implementado", Variaveis.getSiglaSistema(), 1);
+       new TelaCadastroCliente().setVisible(true);
+        
+        
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     private void jMenuItemFabricantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFabricantesActionPerformed

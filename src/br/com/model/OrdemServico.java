@@ -8,7 +8,9 @@ package br.com.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,14 +21,16 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Produção
+ * @author Producao
  */
 @Entity
 @Table(name = "ordem_servico")
@@ -34,8 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "OrdemServico.findAll", query = "SELECT o FROM OrdemServico o"),
     @NamedQuery(name = "OrdemServico.findByIdordemServico", query = "SELECT o FROM OrdemServico o WHERE o.idordemServico = :idordemServico"),
-    @NamedQuery(name = "OrdemServico.findByIdcliente", query = "SELECT o FROM OrdemServico o WHERE o.idcliente = :idcliente"),
-    @NamedQuery(name = "OrdemServico.findByIdsituacao_os", query = "SELECT o FROM OrdemServico o WHERE o.idsituacaoOs = :idsituacao_os"),
     @NamedQuery(name = "OrdemServico.findByDataAbertura", query = "SELECT o FROM OrdemServico o WHERE o.dataAbertura = :dataAbertura"),
     @NamedQuery(name = "OrdemServico.findByDataTermino", query = "SELECT o FROM OrdemServico o WHERE o.dataTermino = :dataTermino"),
     @NamedQuery(name = "OrdemServico.findByProcessador", query = "SELECT o FROM OrdemServico o WHERE o.processador = :processador"),
@@ -78,6 +80,8 @@ public class OrdemServico implements Serializable {
     private String discoRigido;
     @Column(name = "marca")
     private String marca;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idordemServico")
+    private List<ServicoRealizado> servicoRealizadoList;
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
     @ManyToOne
     private Cliente idcliente;
@@ -189,6 +193,15 @@ public class OrdemServico implements Serializable {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    @XmlTransient
+    public List<ServicoRealizado> getServicoRealizadoList() {
+        return servicoRealizadoList;
+    }
+
+    public void setServicoRealizadoList(List<ServicoRealizado> servicoRealizadoList) {
+        this.servicoRealizadoList = servicoRealizadoList;
     }
 
     public Cliente getIdcliente() {

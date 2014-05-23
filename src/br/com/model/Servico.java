@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Servico.findByIdservico", query = "SELECT s FROM Servico s WHERE s.idservico = :idservico"),
     @NamedQuery(name = "Servico.findByDescricao", query = "SELECT s FROM Servico s WHERE s.descricao = :descricao")})
 public class Servico implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idservico")
+    private List<ServicoRealizado> servicoRealizadoList;
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
@@ -47,8 +49,8 @@ public class Servico implements Serializable {
     private Integer idservico;
     @Column(name = "descricao")
     private String descricao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idservico")
-    private List<ServicoRealizado> servicoRealizadoList;
+    
+    
 
     public Servico() {
     }
@@ -118,5 +120,7 @@ public class Servico implements Serializable {
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
     }
+
+   
     
 }
