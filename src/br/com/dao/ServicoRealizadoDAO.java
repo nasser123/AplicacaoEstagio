@@ -61,9 +61,9 @@ public class ServicoRealizadoDAO implements IDao {
     @Override
     public boolean excluir(Object objeto) throws SQLException {
         if (objeto instanceof ServicoRealizado) {
-            ServicoRealizado os = (ServicoRealizado) objeto;
+            ServicoRealizado sr = (ServicoRealizado) objeto;
             entity.getTransaction().begin();
-            entity.remove(os);
+            entity.remove(sr);
             entity.getTransaction().commit();
             return true;
         }

@@ -329,7 +329,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jPanel1.add(jButtonGravar);
         jButtonGravar.setBounds(310, 590, 100, 90);
 
-        jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/add_user16x16.png"))); // NOI18N
+        jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/add_user_64.png"))); // NOI18N
         jButtonNovo.setText("Novo");
         jButtonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNovo.setPreferredSize(new java.awt.Dimension(65, 65));
@@ -340,7 +340,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonNovo);
-        jButtonNovo.setBounds(150, 590, 65, 65);
+        jButtonNovo.setBounds(150, 590, 100, 90);
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel14.setText("CEP:");
@@ -392,7 +392,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonExcluir);
-        jButtonExcluir.setBounds(10, 594, 90, 90);
+        jButtonExcluir.setBounds(30, 590, 100, 90);
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel16.setText("Situação:");
@@ -405,14 +405,17 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jPanel1.add(jFormattedTextField1);
         jFormattedTextField1.setBounds(920, 530, 90, 25);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/exit_64.png"))); // NOI18N
         jButton1.setText("Sair");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(790, 600, 70, 60);
+        jButton1.setBounds(910, 590, 100, 90);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

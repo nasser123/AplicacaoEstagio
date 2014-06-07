@@ -7,6 +7,8 @@
 package br.com.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -193,6 +195,16 @@ public class OrdemServico implements Serializable {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+    
+    public BigDecimal getTotalServicos(){
+        float totalf = 0.0f;
+        
+        for (int i = 0; i < servicoRealizadoList.size(); i++){
+            totalf= totalf + (servicoRealizadoList.get(i).getValor().floatValue());
+        }
+        BigDecimal total = new BigDecimal(totalf);
+       return total; 
     }
 
     @XmlTransient

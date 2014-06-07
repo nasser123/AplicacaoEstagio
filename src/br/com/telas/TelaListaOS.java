@@ -6,6 +6,7 @@ package br.com.telas;
 
 import br.com.config.ConnectionFactory;
 import br.com.model.OrdemServico;
+import br.com.utilidades.ConfigTelas;
 
 /**
  *
@@ -18,6 +19,9 @@ public class TelaListaOS extends javax.swing.JFrame {
      */
     public TelaListaOS() {
         initComponents();
+        ConfigTelas ct = new ConfigTelas(this);
+        ct.carregarConfig(this);
+                
         this.jComboBoxOS.setVisible(false);
     }
 
@@ -34,6 +38,7 @@ public class TelaListaOS extends javax.swing.JFrame {
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
         ordemServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT o FROM OrdemServico o");
         ordemServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(ordemServicoQuery.getResultList());
+        situacaoOsListCellRenderer1 = new br.com.renderizadores.SituacaoOsListCellRenderer();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -42,6 +47,12 @@ public class TelaListaOS extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButtonSair = new javax.swing.JButton();
         jButtonNovo = new javax.swing.JButton();
+        jCheckBoxAbertas = new javax.swing.JCheckBox();
+        jCheckBoxAndamento = new javax.swing.JCheckBox();
+        jCheckBoxFechadas = new javax.swing.JCheckBox();
+        jCheckBoxTodas = new javax.swing.JCheckBox();
+
+        situacaoOsListCellRenderer1.setText("situacaoOsListCellRenderer1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -66,6 +77,10 @@ public class TelaListaOS extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idsituacaoOs.descricao}"));
         columnBinding.setColumnName("Situação");
         columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${totalServicos}"));
+        columnBinding.setColumnName("Total Servicos");
+        columnBinding.setColumnClass(java.math.BigDecimal.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
@@ -78,7 +93,10 @@ public class TelaListaOS extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(4).setMaxWidth(100);
         }
 
+        jButtonVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/visualizar_ordem_servico.png"))); // NOI18N
         jButtonVisualizar.setText("Visualizar");
+        jButtonVisualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonVisualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButtonVisualizar, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -97,17 +115,51 @@ public class TelaListaOS extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Lista de Ordens de Serviço");
 
+        jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/exit_64.png"))); // NOI18N
         jButtonSair.setText("Sair");
+        jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSairActionPerformed(evt);
             }
         });
 
+        jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/add_servico_64.png"))); // NOI18N
         jButtonNovo.setText("Nova");
+        jButtonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNovoActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxAbertas.setText("Abertas");
+        jCheckBoxAbertas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxAbertasActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxAndamento.setText("Andamento");
+        jCheckBoxAndamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxAndamentoActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxFechadas.setText("Fechadas");
+        jCheckBoxFechadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxFechadasActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxTodas.setText("Todas");
+        jCheckBoxTodas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxTodasActionPerformed(evt);
             }
         });
 
@@ -119,35 +171,51 @@ public class TelaListaOS extends javax.swing.JFrame {
                 .addGap(99, 99, 99)
                 .addComponent(jComboBoxOS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonNovo)
-                .addGap(87, 87, 87)
-                .addComponent(jButtonVisualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonSair)
+                .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBoxTodas)
+                                .addGap(67, 67, 67)
+                                .addComponent(jCheckBoxAbertas)
+                                .addGap(51, 51, 51)
+                                .addComponent(jCheckBoxAndamento)
+                                .addGap(41, 41, 41)
+                                .addComponent(jCheckBoxFechadas)
+                                .addGap(9, 9, 9))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(297, 297, 297)
                         .addComponent(jLabel1)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCheckBoxAbertas)
+                    .addComponent(jCheckBoxAndamento)
+                    .addComponent(jCheckBoxFechadas)
+                    .addComponent(jCheckBoxTodas))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonVisualizar)
-                        .addComponent(jButtonSair)
-                        .addComponent(jButtonNovo))
+                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jComboBoxOS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(87, 87, 87))
         );
@@ -190,6 +258,37 @@ public class TelaListaOS extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
+    private void jCheckBoxTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTodasActionPerformed
+        if (jCheckBoxTodas.isSelected()){
+            jCheckBoxAbertas.setSelected(true);
+            jCheckBoxAndamento.setSelected(true);
+            jCheckBoxFechadas.setSelected(true);
+        }else{
+            jCheckBoxAbertas.setSelected(false);
+            jCheckBoxAndamento.setSelected(false);
+            jCheckBoxFechadas.setSelected(false);
+        }
+    }//GEN-LAST:event_jCheckBoxTodasActionPerformed
+
+    private void jCheckBoxAbertasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAbertasActionPerformed
+       if(!jCheckBoxAbertas.isSelected())
+           jCheckBoxTodas.setSelected(false);
+    }//GEN-LAST:event_jCheckBoxAbertasActionPerformed
+
+    private void jCheckBoxAndamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAndamentoActionPerformed
+        if(!jCheckBoxAndamento.isSelected())
+           jCheckBoxTodas.setSelected(false);
+    }//GEN-LAST:event_jCheckBoxAndamentoActionPerformed
+
+    private void jCheckBoxFechadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxFechadasActionPerformed
+        if(!jCheckBoxFechadas.isSelected())
+           jCheckBoxTodas.setSelected(false);
+    }//GEN-LAST:event_jCheckBoxFechadasActionPerformed
+
+    private void preencheTabela(){
+        
+    
+    }
     /**
      * @param args the command line arguments
      */
@@ -236,6 +335,10 @@ public class TelaListaOS extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonSair;
     private javax.swing.JButton jButtonVisualizar;
+    private javax.swing.JCheckBox jCheckBoxAbertas;
+    private javax.swing.JCheckBox jCheckBoxAndamento;
+    private javax.swing.JCheckBox jCheckBoxFechadas;
+    private javax.swing.JCheckBox jCheckBoxTodas;
     private javax.swing.JComboBox jComboBoxOS;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -243,6 +346,7 @@ public class TelaListaOS extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private java.util.List<br.com.model.OrdemServico> ordemServicoList;
     private javax.persistence.Query ordemServicoQuery;
+    private br.com.renderizadores.SituacaoOsListCellRenderer situacaoOsListCellRenderer1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

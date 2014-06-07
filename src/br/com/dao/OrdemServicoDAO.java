@@ -11,8 +11,11 @@ package br.com.dao;
 
 import br.com.config.ConnectionFactory;
 import br.com.model.OrdemServico;
+import br.com.model.ServicoRealizado;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 /**
@@ -32,11 +35,11 @@ public class OrdemServicoDAO implements IDao {
     public boolean inserir(Object objeto) throws SQLException {
         if (objeto instanceof OrdemServico) {
             OrdemServico os = (OrdemServico) objeto;
-                entity.getTransaction().begin();
-                entity.persist(os);
-                entity.getTransaction().commit();
+            entity.getTransaction().begin();
+            entity.persist(os);
+            entity.getTransaction().commit();
 
-                return true;
+            return true;
         }
         return false;
     }
@@ -45,11 +48,13 @@ public class OrdemServicoDAO implements IDao {
     public boolean alterar(Object objeto) throws SQLException {
         if (objeto instanceof OrdemServico) {
             OrdemServico os = (OrdemServico) objeto;
+            OrdemServico antigo = pesquisarPorId(os.getIdordemServico());
             if (pesquisarPorId(os.getIdordemServico()) != null) {
-                OrdemServico antigo = pesquisarPorId(os.getIdordemServico());
+
+                atualizaListaServicosRealizados(os);
                 antigo = os;
                 entity.getTransaction().begin();
-                entity.persist(antigo);
+                entity.merge(antigo);
                 entity.getTransaction().commit();
                 return true;
             }
@@ -86,6 +91,39 @@ public class OrdemServicoDAO implements IDao {
         return ordemServicos;
     }
 
+    private void atualizaListaServicosRealizados(OrdemServico os) {
+        ServicoRealizadoDAO srdao = new ServicoRealizadoDAO();
+        List<ServicoRealizado> listaServicos = null;
+        try {
+            listaServicos = srdao.pesquisarPorIdordemServico(os);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrdemServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (!os.getServicoRealizadoList().equals(listaServicos)) {
+            for (int i = 0; i < listaServicos.size(); i++) {
+                boolean tem = false;
+                for (int j = 0; j < os.getServicoRealizadoList().size(); j++) {
+                    if (listaServicos.get(i).equals(os.getServicoRealizadoList().get(j))) {
+                        tem = true;
+                    }
+                }
+                if (!tem) {
+
+                    try {
+                        srdao.excluir(listaServicos.get(i));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OrdemServicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
     @Override
     public List<OrdemServico> pesquisarTodosOrdenadoPor(String criterioOrdenamento) throws SQLException {
 //        if (criterioOrdenamento == "idcliente") {
@@ -108,7 +146,7 @@ public class OrdemServicoDAO implements IDao {
         }
         return os;
     }
-    
+
     public OrdemServico pesquisarPorIdsituacao_os(int idsituacao_os) throws SQLException {
         OrdemServico os = null;
         ordemServicos = entity.createNamedQuery("OrdemServico.findByIdsituacao_os").setParameter("idsituacao_os", idsituacao_os).getResultList();

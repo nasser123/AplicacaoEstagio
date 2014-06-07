@@ -127,7 +127,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButtonServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/servico_32.png"))); // NOI18N
+        jButtonServicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/servico_64.png"))); // NOI18N
         jButtonServicos.setText("Serviços");
         jButtonServicos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonServicos.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

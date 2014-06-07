@@ -157,7 +157,7 @@ public class ServicoRealizado implements Serializable {
 
     @Override
     public String toString() {
-        return "br.com.model.ServicoRealizado_1[ idservicoRealizado=" + idservicoRealizado + " ]";
+        return "br.com.model.ServicoRealizado[ idservicoRealizado=" + idservicoRealizado + " ]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

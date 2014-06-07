@@ -94,7 +94,6 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
         situacaoServicoQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT s FROM SituacaoServico s");
         situacaoServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(situacaoServicoQuery.getResultList());
         situacaoServicoListCellRenderer1 = new br.com.renderizadores.SituacaoServicoListCellRenderer();
-        servicoListSelecionados = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(servicoQuery.getResultList());
         ordemServico1 = this.os;
         servicoRealizadoQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT s FROM ServicoRealizado s");
         servicoRealizadoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(servicoRealizadoQuery.getResultList());
@@ -120,6 +119,10 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButtonGravar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jTextFieldValor = new javax.swing.JTextField();
 
         servicoListCellRenderer1.setText("servicoListCellRenderer1");
 
@@ -132,6 +135,7 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jListServicosSelecionados.setBorder(javax.swing.BorderFactory.createTitledBorder("Serviços Selecionados"));
         jListServicosSelecionados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListServicosSelecionados.setCellRenderer(servicoRealizadoListCellRenderer1);
 
@@ -142,6 +146,7 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, 240, 270));
 
+        jListServicos.setBorder(javax.swing.BorderFactory.createTitledBorder("Serviços Disponíveis"));
         jListServicos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListServicos.setCellRenderer(servicoListCellRenderer1);
 
@@ -175,7 +180,7 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
         jTextFieldNome.setEditable(false);
         jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 180, -1));
 
-        jLabel1.setText("Nome:");
+        jLabel1.setText("Cliente:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         jLabelNrOs.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -206,7 +211,7 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jListServicosSelecionados, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idsituacaoServico}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 260, -1));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 260, -1));
 
         jTextField1.setEditable(false);
 
@@ -219,24 +224,57 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
 
         jLabel4.setText("Situação");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
 
         jLabel5.setText("Observações");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 460, -1, -1));
 
+        jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/save_64.png"))); // NOI18N
         jButtonGravar.setText("Gravar");
+        jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonGravar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonGravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonGravarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 640, -1, -1));
+        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 640, -1, -1));
+
+        jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/block_64.png"))); // NOI18N
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, -1, -1));
+
+        jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/icones/exit_64.png"))); // NOI18N
+        jButtonSair.setText("Sair");
+        jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 640, -1, -1));
+
+        jLabel6.setText("Valor");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 560, -1, -1));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jListServicosSelecionados, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.valor}"), jTextFieldValor, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jPanel1.add(jTextFieldValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 260, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,8 +290,6 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
     private void jButtonAdicionaServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionaServicoActionPerformed
         if (jListServicos.getSelectedIndex() != -1) {
             Servico s = (Servico) jListServicos.getSelectedValue();
-            servicoListSelecionados.add(s);
-            //ordemServico1.setServicoRealizadoList(servicoListSelecionados);
             servicoList.remove(s);
             ServicoRealizado sr = new ServicoRealizado();
             sr.setIdordemServico(this.os);
@@ -261,6 +297,7 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
             sr.setIdsituacaoServico(situacaoServicoList.get(0));
             servicoRealizadoList.add(sr);
             jListServicos.setListData(servicoList.toArray());
+            
             jListServicosSelecionados.setListData(servicoRealizadoList.toArray());
             
         }
@@ -269,12 +306,43 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdicionaServicoActionPerformed
 
     private void jButtonRemoveServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveServicoActionPerformed
+        if (jListServicosSelecionados.getSelectedIndex() != -1){
+            ServicoRealizado sr = (ServicoRealizado)jListServicosSelecionados.getSelectedValue();
+            Servico s = sr.getIdservico();
+            servicoList.add(s);
+            servicoRealizadoList.remove(sr);
+            this.os.setServicoRealizadoList(servicoRealizadoList);
+//            for (int i = 0 ; i < servicoRealizadoList.size() ; i ++){
+//                if (servicoRealizadoList.get(i).getIdservico().equals(s)){
+//                    servicoRealizadoList.remove(i);
+//                    break;
+//                }
+//            }
+            
+            jListServicos.setListData(servicoList.toArray());
+            jListServicosSelecionados.setSelectedIndex(0);
+//            jListServicosSelecionados.removeAll();
+            try{
+                jListServicosSelecionados.setListData(servicoRealizadoList.toArray());
+            
+            }catch (ArrayIndexOutOfBoundsException aibe){
+                jListServicosSelecionados.setSelectedIndex(-1);
+            }
+            
+            
+           
         
+        }
 
     }//GEN-LAST:event_jButtonRemoveServicoActionPerformed
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
         OrdemServicoDAO osd = new OrdemServicoDAO();
+        try {
+            OrdemServico teste = osd.pesquisarPorId(this.os.getIdordemServico());
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInserirServicoNaOS.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.os.setServicoRealizadoList(servicoRealizadoList);
         try {
             osd.alterar(this.os);
@@ -286,6 +354,16 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
         
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        new TelaCadastroOrdemServico(this.os).setVisible(true); 
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        new TelaCadastroOrdemServico(this.os).setVisible(true); 
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,14 +403,17 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JButton jButtonAdicionaServico;
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonRemoveServico;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelNrOs;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JList jListServicos;
@@ -345,10 +426,10 @@ public class TelaInserirServicoNaOS extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldEquipamento;
     private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextFieldValor;
     private br.com.model.OrdemServico ordemServico1;
     private java.util.List<br.com.model.Servico> servicoList;
     private br.com.renderizadores.ServicoListCellRenderer servicoListCellRenderer1;
-    private java.util.List servicoListSelecionados;
     private javax.persistence.Query servicoQuery;
     private java.util.List<br.com.model.ServicoRealizado> servicoRealizadoList;
     private br.com.renderizadores.ServicoRealizadoListCellRenderer servicoRealizadoListCellRenderer1;
